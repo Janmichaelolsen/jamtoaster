@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  db: 'mongodb://' + (process.env.DB_PORT_27017_TCP_ADDR || 'localhost') + '/mean-test',
+  db: 'mongodb://admin:h3e3l9i77@ds029821.mongolab.com:29821/heroku_app32923609',
   http: {
     port: 3001
   },
