@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  db: 'mongodb://admin:h3e3l9i77@ds029821.mongolab.com:29821/heroku_app32923609',
+  db: 'mongodb://admin:h3e3l9i77@ds053798.mongolab.com:53798/heroku_app32923609',
   debug: true,
 //  aggregate: 'whatever that is not false, because boolean false value turns aggregation off', //false
   aggregate: true,
