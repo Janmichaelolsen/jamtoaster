@@ -3,113 +3,163 @@
 /**
  * Module dependencies.
  */
-var mean = require('meanio'),
-  compression = require('compression'),
-  morgan = require('morgan'),
-  consolidate = require('consolidate'),
-  cookieParser = require('cookie-parser'),
-  expressValidator = require('express-validator'),
-  bodyParser = require('body-parser'),
-  methodOverride = require('method-override'),
-  assetmanager = require('assetmanager'),
-  session = require('express-session'),
-  mongoStore = require('connect-mongo')(session),
-  helpers = require('view-helpers'),
-  flash = require('connect-flash'),
-  config = mean.loadConfig();
+var fs = require('fs'),
+	http = require('http'),
+	https = require('https'),
+	express = require('express'),
+	morgan = require('morgan'),
+	logger = require('./logger'),
+	bodyParser = require('body-parser'),
+	session = require('express-session'),
+	compression = require('compression'),
+	methodOverride = require('method-override'),
+	cookieParser = require('cookie-parser'),
+	helmet = require('helmet'),
+	passport = require('passport'),
+	mongoStore = require('connect-mongo')({
+		session: session
+	}),
+	flash = require('connect-flash'),
+	config = require('./config'),
+	consolidate = require('consolidate'),
+	path = require('path');
 
-function onAggregatedSrc(loc,ext,res,next,data){
-  res.locals.aggregatedassets[loc][ext] = data;
-  next && next();
-}
+module.exports = function(db) {
+	// Initialize express app
+	var app = express();
 
-module.exports = function(app, passport, db) {
+	// Globbing model files
+	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
+		require(path.resolve(modelPath));
+	});
 
-  app.set('showStackError', true);
+	// Setting application local variables
+	app.locals.title = config.app.title;
+	app.locals.description = config.app.description;
+	app.locals.keywords = config.app.keywords;
+	app.locals.facebookAppId = config.facebook.clientID;
+	app.locals.jsFiles = config.getJavaScriptAssets();
+	app.locals.cssFiles = config.getCSSAssets();
 
-  // Prettify HTML
-  app.locals.pretty = true;
+	// Passing the request url to environment locals
+	app.use(function(req, res, next) {
+		res.locals.url = req.protocol + '://' + req.headers.host + req.url;
+		next();
+	});
 
-  // cache=memory or swig dies in NODE_ENV=production
-  app.locals.cache = 'memory';
+	// Should be placed before express.static
+	app.use(compression({
+		// only compress files for the following content types
+		filter: function(req, res) {
+			return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
+		},
+		// zlib option for compression level
+		level: 3
+	}));
 
-  // Should be placed before express.static
-  // To ensure that all assets and data are compressed (utilize bandwidth)
-  app.use(compression({
-    // Levels are specified in a range of 0 to 9, where-as 0 is
-    // no compression and 9 is best compression, but slowest
-    level: 9
-  }));
+	// Showing stack errors
+	app.set('showStackError', true);
 
-  // Only use logger for development environment
-  if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'));
-  }
+	// Set swig as the template engine
+	app.engine('server.view.html', consolidate[config.templateEngine]);
 
-  // assign the template engine to .html files
-  app.engine('html', consolidate[config.templateEngine]);
+	// Set views path and view engine
+	app.set('view engine', 'server.view.html');
+	app.set('views', './app/views');
 
-  // set .html as the default extension
-  app.set('view engine', 'html');
+	// Enable logger (morgan)
+	app.use(morgan(logger.getLogFormat(), logger.getLogOptions()));
 
-  // The cookieParser should be above session
-  app.use(cookieParser());
+	// Environment dependent middleware
+	if (process.env.NODE_ENV === 'development') {
+		// Disable views cache
+		app.set('view cache', false);
+	} else if (process.env.NODE_ENV === 'production') {
+		app.locals.cache = 'memory';
+	}
 
-  // Request body parsing middleware should be above methodOverride
-  app.use(expressValidator());
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({
-    extended: true
-  }));
-  app.use(methodOverride());
+	// Request body parsing middleware should be above methodOverride
+	app.use(bodyParser.urlencoded({
+		extended: true
+	}));
+	app.use(bodyParser.json());
+	app.use(methodOverride());
 
-  // Import the assets file and add to locals
-  var assets = assetmanager.process({
-    assets: require('./assets.json'),
-    debug: process.env.NODE_ENV !== 'production',
-    webroot: /public\/|packages\//g
-  });
-  for(var i in assets.core.css){
-    mean.aggregate('css',assets.core.css[i],{group:'header',singlefile:true},mean.config.clean);
-  }
-  for(var i in assets.core.js){
-    mean.aggregate('js',assets.core.js[i],{group:'footer',singlefile:true,global:true,weight:-1000000+i},mean.config.clean);
-  }
+	// Use helmet to secure Express headers
+	app.use(helmet.xframe());
+	app.use(helmet.xssFilter());
+	app.use(helmet.nosniff());
+	app.use(helmet.ienoopen());
+	app.disable('x-powered-by');
 
-  // Add assets to local variables
-  app.use(function(req, res, next) {
-    //res.locals.assets = assets;
-    res.locals.aggregatedassets = {header:{},footer:{}};
+	// Setting the app router and static folder
+	app.use(express.static(path.resolve('./public')));
 
-    mean.aggregatedsrc('css', 'header', onAggregatedSrc.bind(null,'header','css',res,null));
-    mean.aggregatedsrc('js', 'header', onAggregatedSrc.bind(null,'header','js',res,null));
-    mean.aggregatedsrc('css', 'footer', onAggregatedSrc.bind(null,'footer','css',res,null));
-    mean.aggregatedsrc('js', 'footer', onAggregatedSrc.bind(null,'footer','js',res,next));
-  });
+	// CookieParser should be above session
+	app.use(cookieParser());
 
-  // Express/Mongo session storage
-  app.use(session({
-    secret: config.sessionSecret,
-    store: new mongoStore({
-      db: db.connection.db,
-      collection: config.sessionCollection
-    }),
-    cookie: config.sessionCookie,
-    name: config.sessionName,
-    resave: true,
-    saveUninitialized: true
-  }));
+	// Express MongoDB session storage
+	app.use(session({
+		saveUninitialized: true,
+		resave: true,
+		secret: config.sessionSecret,
+		store: new mongoStore({
+			db: db.connection.db,
+			collection: config.sessionCollection
+		}),
+		cookie: config.sessionCookie,
+		name: config.sessionName
+	}));
 
-  // Dynamic helpers
-  app.use(helpers(config.app.name));
+	// use passport session
+	app.use(passport.initialize());
+	app.use(passport.session());
 
-  // Use passport session
-  app.use(passport.initialize());
-  app.use(passport.session());
+	// connect flash for flash messages
+	app.use(flash());
 
-  //mean middleware from modules before routes
-  app.use(mean.chainware.before);
+	// Globbing routing files
+	config.getGlobbedFiles('./app/routes/**/*.js').forEach(function(routePath) {
+		require(path.resolve(routePath))(app);
+	});
 
-  // Connect flash for flash messages
-  app.use(flash());
+	// Assume 'not found' in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
+	app.use(function(err, req, res, next) {
+		// If the error object doesn't exists
+		if (!err) return next();
+
+		// Log it
+		console.error(err.stack);
+
+		// Error page
+		res.status(500).render('500', {
+			error: err.stack
+		});
+	});
+
+	// Assume 404 since no middleware responded
+	app.use(function(req, res) {
+		res.status(404).render('404', {
+			url: req.originalUrl,
+			error: 'Not Found'
+		});
+	});
+
+	if (process.env.NODE_ENV === 'secure') {
+		// Load SSL key and certificate
+		var privateKey = fs.readFileSync('./config/sslcerts/key.pem', 'utf8');
+		var certificate = fs.readFileSync('./config/sslcerts/cert.pem', 'utf8');
+
+		// Create HTTPS Server
+		var httpsServer = https.createServer({
+			key: privateKey,
+			cert: certificate
+		}, app);
+
+		// Return HTTPS server instance
+		return httpsServer;
+	}
+
+	// Return Express server instance
+	return app;
 };
