@@ -1,9 +1,7 @@
 {
   "name": "jamtoaster",
   "version": "0.0.0",
-  "dependencies": {},
-  "repository": {},
-  "devDependencies": {
+  "dependencies": {
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "^2.0.0",
     "grunt-concurrent": "^1.0.0",
@@ -32,7 +30,9 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "load-grunt-tasks": "^1.0.0",
     "time-grunt": "^1.0.0"
-  },
+    },
+  "repository": {},
+  "devDependencies": {},
   "engines": {
     "node": ">=0.10.0"
   },
