@@ -1,7 +1,48 @@
-<script src="soundcloud.js"></script>
-<script src="http://connect.soundcloud.com/sdk.js"></script>
 <section data-ng-controller="HomeController">
-	<!--
+	<div class="jumbotron text-center">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
+				<img alt="MEAN.JS" class="img-responsive text-center" src="modules/core/img/brand/logo.png" />
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<p class="lead">
+				Open-Source Full-Stack Solution For MEAN Applications
+			</p>
+		</div>
+		<div class="row">
+			<p>
+				<a class="btn btn-primary btn-lg" href="http://meanjs.org" target="_blank">Learn more</a>
+			</p>
+		</div>
+	</div>
+	<div>
+		<h2>Congrats! You've configured and run the sample application.</h2>
+		<p>MEAN.JS is a web application boilerplate, which means you should start changing everything :-)</p>
+		<p>This sample application tracks users and articles.</p>
+		<ul>
+			<li>
+				Click
+				<em>Signup</em>
+				to get started.
+			</li>
+			<li>
+				Configure your app to work with your social accounts, by editing the
+				<em>/config/env/*.js</em>
+				files.
+			</li>
+			<li>
+				Edit your users module.
+			</li>
+			<li>
+				Add new CRUD modules.
+			</li>
+			<li>
+				Have fun...
+			</li>
+		</ul>
+	</div>
 	<div class="row">
 		<div class="col-md-3">
 			<h2>
@@ -13,7 +54,7 @@
 			<h2>
 				<strong>E</strong>xpress
 			</h2>
-			<p><a target="_blank" href="http://expressjs.com/"> Express</a> is an app server. Check out <a target="_blank" href="http://expressjs.com/4x/api.html">The ExpressJS API reference for more information</a> or <a target="_blank" href="http://stackoverflow.com/questions/8144214/learning-express-for-node-js">StackOverflow</a> for more info.</p>
+			<p><a target="_blank" href="http://expressjs.com/"> Express</a> is an app server. Check out <a target="_blank" href="http://expressjs.com/guide.html">The Express Guide</a> or <a target="_blank" href="http://stackoverflow.com/questions/8144214/learning-express-for-node-js">StackOverflow</a> for more info.</p>
 		</div>
 		<div class="col-md-3">
 			<h2>
@@ -28,75 +69,26 @@
 			<p><a target="_blank" href="http://nodejs.org/">Node.js</a> is a web server. Node's website and this <a target="_blank" href="http://stackoverflow.com/questions/2353818/how-do-i-get-started-with-node-js">stackOverflow thread</a> offer excellent starting points to get to grasps with node.</p>
 		</div>
 	</div>
--->
-	<div class="well" style="margin-top:10px;">
-		<h2>Hypem</h2>
-			<script type="text/javascript" src="http://hypem.com/widget/v2/search/asdf/10/hype.js?bcol=DDDDDD&tcol=000000&lcol=333333"></script>
-			<div id="hypem-widget"></div>
-			
-		<h2>Youtube</h2>
-		<iframe id="player" type="text/html" width="640" height="390"
-		  src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
-		  frameborder="0"></iframe>
-		<h2>Soundcloud</h2>
-		<script>
-			SC.initialize({
-			  client_id: '7ee4ea137d2c4782d07fc465eb841845'
-			});
-
-			var track_url = 'http://soundcloud.com/forss/flickermood';
-			SC.oEmbed(track_url, { auto_play: true }, function(oEmbed) {
-			  console.log('oEmbed response: ' + oEmbed);
-			});
-		</script>
-		<h2>Spotify</h2>
-		<script>
-			var iframeElement   = document.querySelector('iframe');
-			var iframeElementID = iframeElement.id;
-			var widget1         = SC.Widget(iframeElement);
-			var widget2         = SC.Widget(iframeElementID);
-		</script>
-	    <script>
-	      // 2. This code loads the IFrame Player API code asynchronously.
-	      var tag = document.createElement('script');
-
-	      tag.src = "https://www.youtube.com/iframe_api";
-	      var firstScriptTag = document.getElementsByTagName('script')[0];
-	      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-	      // 3. This function creates an <iframe> (and YouTube player)
-	      //    after the API code downloads.
-	      var player;
-	      function onYouTubeIframeAPIReady() {
-	        player = new YT.Player('player', {
-	          height: '390',
-	          width: '640',
-	          videoId: 'M7lc1UVf-VE',
-	          events: {
-	            'onReady': onPlayerReady,
-	            'onStateChange': onPlayerStateChange
-	          }
-	        });
-	      }
-
-	      // 4. The API will call this function when the video player is ready.
-	      function onPlayerReady(event) {
-	        event.target.playVideo();
-	      }
-
-	      // 5. The API calls this function when the player's state changes.
-	      //    The function indicates that when playing a video (state=1),
-	      //    the player should play for six seconds and then stop.
-	      var done = false;
-	      function onPlayerStateChange(event) {
-	        if (event.data == YT.PlayerState.PLAYING && !done) {
-	          setTimeout(stopVideo, 6000);
-	          done = true;
-	        }
-	      }
-	      function stopVideo() {
-	        player.stopVideo();
-	      }
-	    </script>
+	<div class="well">
+		<h2>MEAN.JS Documentation</h2>
+		<p>
+			Once you're familiar with the foundation technology, check out the MEAN.JS Documentation:
+			<ul>
+				<li><a target="_blank" href="http://meanjs.org/docs.html">MEAN.JS Documentation</a>
+				</li>
+				<li><a target="_blank" href="http://meanjs.org/generator.html">Yeoman Generator</a>
+				</li>
+				<li><a target="_blank" href="http://meanjs.org/modules.html">Modules</a>
+				</li>
+				<li><a target="_blank" href="http://meanjs.org/changelog.html">Changelog</a>
+				</li>
+				<li><a target="_blank" href="http://meanjs.org/community.html">Community</a>
+				</li>
+				<li><a target="_blank" href="http://blog.meanjs.org">Blog</a>
+				</li>
+			</ul>
+		</p>
 	</div>
+	<br>Enjoy &amp; Keep Us Updated,
+	<br>The MEAN.JS Team.
 </section>

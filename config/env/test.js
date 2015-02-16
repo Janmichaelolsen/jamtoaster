@@ -1,25 +1,10 @@
 'use strict';
 
 module.exports = {
-	db: {
-		uri: 'mongodb://admin:h3e3l9i77@ds053798.mongolab.com:53798/heroku_app32923609',
-		options: {
-			user: '',
-			pass: ''
-		}
-	},
+	db: 'mongodb://admin:h3e3l9i77@ds053798.mongolab.com:53798/heroku_app32923609',
 	port: 3001,
-	log: {
-		// Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
-		format: 'dev',
-		// Stream defaults to process.stdout
-		// Uncomment to enable logging to a log on the file system
-		options: {
-			//stream: 'access.log'
-		}
-	},
 	app: {
-		title: 'MEAN.JS - Test Environment'
+		title: 'jamtoaster - Test Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
