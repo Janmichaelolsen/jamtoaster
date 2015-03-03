@@ -6,17 +6,17 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	Play = mongoose.model('Play');
+	Playlist = mongoose.model('Playlist');
 
 /**
  * Globals
  */
-var user, play;
+var user, playlist;
 
 /**
  * Unit tests
  */
-describe('Play Model Unit Tests:', function() {
+describe('Playlist Model Unit Tests:', function() {
 	beforeEach(function(done) {
 		user = new User({
 			firstName: 'Full',
@@ -28,8 +28,8 @@ describe('Play Model Unit Tests:', function() {
 		});
 
 		user.save(function() { 
-			play = new Play({
-				name: 'Play Name',
+			playlist = new Playlist({
+				name: 'Playlist Name',
 				user: user
 			});
 
@@ -39,16 +39,16 @@ describe('Play Model Unit Tests:', function() {
 
 	describe('Method Save', function() {
 		it('should be able to save without problems', function(done) {
-			return play.save(function(err) {
+			return playlist.save(function(err) {
 				should.not.exist(err);
 				done();
 			});
 		});
 
 		it('should be able to show an error when try to save without name', function(done) { 
-			play.name = '';
+			playlist.name = '';
 
-			return play.save(function(err) {
+			return playlist.save(function(err) {
 				should.exist(err);
 				done();
 			});
@@ -56,7 +56,7 @@ describe('Play Model Unit Tests:', function() {
 	});
 
 	afterEach(function(done) { 
-		Play.remove().exec();
+		Playlist.remove().exec();
 		User.remove().exec();
 
 		done();

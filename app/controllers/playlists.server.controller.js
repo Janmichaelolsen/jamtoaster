@@ -5,102 +5,102 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
-	Play = mongoose.model('Play'),
+	Playlist = mongoose.model('Playlist'),
 	_ = require('lodash');
 
 /**
- * Create a Play
+ * Create a Playlist
  */
 exports.create = function(req, res) {
-	var play = new Play(req.body);
-	play.user = req.user;
+	var playlist = new Playlist(req.body);
+	playlist.user = req.user;
 
-	play.save(function(err) {
+	playlist.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(play);
+			res.jsonp(playlist);
 		}
 	});
 };
 
 /**
- * Show the current Play
+ * Show the current Playlist
  */
 exports.read = function(req, res) {
-	res.jsonp(req.play);
+	res.jsonp(req.playlist);
 };
 
 /**
- * Update a Play
+ * Update a Playlist
  */
 exports.update = function(req, res) {
-	var play = req.play ;
+	var playlist = req.playlist ;
 
-	play = _.extend(play , req.body);
+	playlist = _.extend(playlist , req.body);
 
-	play.save(function(err) {
+	playlist.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(play);
+			res.jsonp(playlist);
 		}
 	});
 };
 
 /**
- * Delete an Play
+ * Delete an Playlist
  */
 exports.delete = function(req, res) {
-	var play = req.play ;
+	var playlist = req.playlist ;
 
-	play.remove(function(err) {
+	playlist.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(play);
+			res.jsonp(playlist);
 		}
 	});
 };
 
 /**
- * List of Plays
+ * List of Playlists
  */
 exports.list = function(req, res) { 
-	Play.find().sort('-created').populate('user', 'displayName').exec(function(err, plays) {
+	Playlist.find().sort('-created').populate('user', 'displayName').exec(function(err, playlists) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(plays);
+			res.jsonp(playlists);
 		}
 	});
 };
 
 /**
- * Play middleware
+ * Playlist middleware
  */
-exports.playByID = function(req, res, next, id) { 
-	Play.findById(id).populate('user', 'displayName').exec(function(err, play) {
+exports.playlistByID = function(req, res, next, id) { 
+	Playlist.findById(id).populate('user', 'displayName').exec(function(err, playlist) {
 		if (err) return next(err);
-		if (! play) return next(new Error('Failed to load Play ' + id));
-		req.play = play ;
+		if (! playlist) return next(new Error('Failed to load Playlist ' + id));
+		req.playlist = playlist ;
 		next();
 	});
 };
 
 /**
- * Play authorization middleware
+ * Playlist authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.play.user.id !== req.user.id) {
+	if (req.playlist.user.id !== req.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();

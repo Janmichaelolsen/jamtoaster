@@ -3,7 +3,7 @@
 module.exports = {
 	db: 'mongodb://admin:h3e3l9i77@ds053798.mongolab.com:53798/heroku_app32923609',
 	app: {
-		title: 'jamtoaster - Development Environment'
+		title: 'Jamtoaster - Development Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',

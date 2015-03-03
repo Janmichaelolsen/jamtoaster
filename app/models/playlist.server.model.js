@@ -7,13 +7,13 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 /**
- * Play Schema
+ * Playlist Schema
  */
-var PlaySchema = new Schema({
+var PlaylistSchema = new Schema({
 	name: {
 		type: String,
 		default: '',
-		required: 'Please fill Play name',
+		required: 'Please fill Playlist name',
 		trim: true
 	},
 	created: {
@@ -26,4 +26,4 @@ var PlaySchema = new Schema({
 	}
 });
 
-mongoose.model('Play', PlaySchema);
+mongoose.model('Playlist', PlaylistSchema);
