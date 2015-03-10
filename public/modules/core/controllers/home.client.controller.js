@@ -1,14 +1,11 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log',
-	function($scope, Authentication, $http, $log) {
-		$scope.init = function(soundcloud) {
-        	var SC = soundcloud;
-        	SC.get('/tracks', { q: 'buskers', license: 'cc-by-sa' }, function(tracks) {
-			 $log.info(tracks);
-			});
-    	};
-	    $log.info($scope.html_metadata);
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SCService', '$http', '$log',
+	function($scope, Authentication, SCService, $http, $log) {
+        SC.initialize({
+          client_id: '7ee4ea137d2c4782d07fc465eb841845'
+        });
+        
 		$scope.searchYT = function () {
 	    	$http.get('https://www.googleapis.com/youtube/v3/search', {
 	        params: {
@@ -21,7 +18,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	        }
 	      })
 	      .success( function (data) {
-	        $log.info(data);
 	        $scope.YTresults = data;
 	      })
 	      .error( function () {
@@ -33,10 +29,32 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		};
 
 		$scope.searchSC = function () {
-
+			SC.get('/tracks', { q: $scope.SCquery, license: 'cc-by-sa' }, function(tracks) {
+			  $scope.SCresults = tracks.slice(1, 11);
+			});
 		};
-		$scope.addSCTrack = function () {
-
+		$scope.addSCTrack = function (soundId) {
+			$log.info(soundId);
+		};
+		$scope.searchHypem = function () {
+			$http.get('http://hypem.com/playlist/search/'+$scope.Hquery+'/json/1')
+			.success(function(tracks){
+				$scope.Hresults = tracks;
+			});
+		};
+		$scope.addHTrack = function (hypeId) {
+			$log.info(hypeId);
+		};
+	    
+	    $scope.searchSpotify = function () {
+	    	$http.get('https://api.spotify.com/v1/search?q='+$scope.Squery+'&type=track')
+	    	.success(function(tracks){
+	    		$log.info(tracks);
+	    		$scope.Sresults = tracks;
+	    	});
+	    };
+	    $scope.addSTrack = function (trackId) {
+			$log.info(trackId);
 		};
 	    $scope.authentication = Authentication;
 	}
