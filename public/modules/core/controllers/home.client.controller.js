@@ -2,10 +2,10 @@
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SCService', '$http', '$log',
 	function($scope, Authentication, SCService, $http, $log) {
-        SC.initialize({
+        /*SC.initialize({
           client_id: '7ee4ea137d2c4782d07fc465eb841845'
         });
-        
+        */
 		$scope.searchYT = function () {
 	    	$http.get('https://www.googleapis.com/youtube/v3/search', {
 	        params: {
@@ -18,6 +18,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	        }
 	      })
 	      .success( function (data) {
+	      	$log.info(data);
 	        $scope.YTresults = data;
 	      })
 	      .error( function () {
@@ -27,19 +28,22 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    $scope.addYTTrack = function (videoId) {
 	    	$log.info(videoId);
 		};
-
+		/*
 		$scope.searchSC = function () {
 			SC.get('/tracks', { q: $scope.SCquery, license: 'cc-by-sa' }, function(tracks) {
 			  $scope.SCresults = tracks.slice(1, 11);
+			  $log.info(tracks.slice(1,11));
 			});
 		};
 		$scope.addSCTrack = function (soundId) {
 			$log.info(soundId);
 		};
+		*/
 		$scope.searchHypem = function () {
 			$http.get('http://hypem.com/playlist/search/'+$scope.Hquery+'/json/1')
 			.success(function(tracks){
 				$scope.Hresults = tracks;
+				$log.info(tracks);
 			});
 		};
 		$scope.addHTrack = function (hypeId) {
