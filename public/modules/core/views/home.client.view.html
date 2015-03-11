@@ -1,124 +1,122 @@
 <section data-ng-controller="HomeController">
-	<div class="jumbotron">
-		<div class="col-sm-5" style="margin:10px;">
-			<form id="searchYT" data-ng-submit="searchYT()">
-				<div class="row">
-					<h3>Youtube</h3>
-				    <div class="input-group">
-				      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="YTquery" required="true">
-				      	<span class="input-group-btn">
-				        	<button id="submit" class="btn btn-default" type="submit">Go!</button>
-				      	</span>
-				    </div><!-- /input-group -->
-				</div>
-			</form>
+<div style="margin-top:30px;">
+<tabset>
+    <tab heading="YouTube" active="active">
+		<form id="searchYT" data-ng-submit="searchYT()">
 			<div class="row">
-				<div class="table-responsive">
-					<table class="table" ng-hide="YTresults.length">
-				    	<tr ng-repeat="vid in YTresults.items">	
-				    		<td>
-				    			<img src="{{vid.snippet.thumbnails.default.url}}"></img>
-				    		</td>
-				    		<td>
-				    			{{vid.snippet.title}}
-				    		</td>
-				    		<td>
-				    			<button ng-click="addYTTrack(vid.id.videoId)">Add</button>
-				    		</td>
-				    	</tr>
-					</table>
-				</div>
+			    <div class="input-group">
+			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="YTquery" required="true">
+			      	<span class="input-group-btn">
+			        	<button id="submit" class="btn btn-default" type="submit">Go!</button>
+			      	</span>
+			    </div><!-- /input-group -->
 			</div>
-		</div><!-- /.col-lg-6 -->
-		<div class="col-sm-5" style="margin:10px;">
-			<form id="searchSC" data-ng-submit="searchSC()">
-				<div class="row">
-					<h3>Soundcloud</h3>
-				    <div class="input-group">
-				      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="SCquery" required="true">
-				      	<span class="input-group-btn">
-				        	<button class="btn btn-default" type="submit">Go!</button>
-				      	</span>
-				    </div><!-- /input-group -->
-				</div>
-			</form>
-			<div class="row">
-				<div class="table-responsive">
-					<table class="table">
-				    	<tr ng-repeat="sound in SCresults">	
-				    		<td>
-				    			<img src="{{sound.artwork_url}}"></img>
-				    		</td>
-				    		<td>
-				    			{{sound.title}}
-				    		</td>
-				    		<td>
-				    			<button ng-click="addSCTrack(sound.id)">Add</button>
-				    		</td>
-				    	</tr>
-					</table>
-				</div>
+		</form>
+		<div class="row">
+			<div class="table-responsive">
+				<table class="table" ng-hide="YTresults.length">
+			    	<tr ng-repeat="vid in YTresults.items">	
+			    		<td>
+			    			<img src="{{vid.snippet.thumbnails.default.url}}"></img>
+			    		</td>
+			    		<td>
+			    			{{vid.snippet.title}}
+			    		</td>
+			    		<td>
+			    			<button ng-click="addYTTrack(vid.id.videoId)">Add</button>
+			    		</td>
+			    	</tr>
+				</table>
 			</div>
 		</div>
-		<div class="col-sm-5" style="margin:10px;">
-			<form id="searchH" data-ng-submit="searchHypem()">
-				<div class="row">
-						<h3>Hypem</h3>
-					    <div class="input-group">
-					      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="Hquery" required="true">
-					      	<span class="input-group-btn">
-					        	<button class="btn btn-default" type="submit">Go!</button>
-					      	</span>
-					    </div><!-- /input-group -->
-				</div>
-			</form>
+    </tab>
+    <tab heading="Soundcloud">
+		<form id="searchSC" data-ng-submit="searchSC()">
 			<div class="row">
-				<div class="table-responsive">
-					<table class="table" ng-hide="Hresults.length">
-				    	<tr ng-repeat="hype in Hresults">	
-				    		<td>
-				    			<img src="{{hype.thumb_url_medium}}"></img>
-				    		</td>
-				    		<td>
-				    			{{hype.artist}}-{{hype.title}}
-				    		</td>
-				    		<td>
-				    			<button ng-click="addHTrack(hype.postid)">Add</button>
-				    		</td>
-				    	</tr>
-					</table>
-				</div>
+			    <div class="input-group">
+			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="SCquery" required="true">
+			      	<span class="input-group-btn">
+			        	<button class="btn btn-default" type="submit">Go!</button>
+			      	</span>
+			    </div><!-- /input-group -->
+			</div>
+		</form>
+		<div class="row">
+			<div class="table-responsive">
+				<table class="table">
+			    	<tr ng-repeat="sound in SCresults">	
+			    		<td>
+			    			<img src="{{sound.artwork_url}}"></img>
+			    		</td>
+			    		<td>
+			    			{{sound.title}}
+			    		</td>
+			    		<td>
+			    			<button ng-click="addSCTrack(sound.id)">Add</button>
+			    		</td>
+			    	</tr>
+				</table>
 			</div>
 		</div>
-		<div class="col-sm-5" style="margin:10px;">
-			<form id="searchS" data-ng-submit="searchSpotify()">
-				<div class="row">
-						<h3>Spotify</h3>
-					    <div class="input-group">
-					      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="Squery" required="true">
-					      	<span class="input-group-btn">
-					        	<button class="btn btn-default" type="submit">Go!</button>
-					      	</span>
-					    </div><!-- /input-group -->
-				</div>
-			</form>
+    </tab>
+    <tab heading="Hypem">
+		<form id="searchH" data-ng-submit="searchHypem()">
 			<div class="row">
-				<div class="table-responsive">
-					<table class="table" ng-hide="Sresults.length">
-				    	<tr ng-repeat="track in Sresults.tracks.items">	
-				    		<td>
-				    			<img src="{{track.album.images.2.url}}"></img>
-				    		</td>
-				    		<td>
-				    			{{track.name}}
-				    		</td>
-				    		<td>
-				    			<button ng-click="addSTrack(track.uri)">Add</button>
-				    		</td>
-				    	</tr>
-					</table>
-				</div>
+			    <div class="input-group">
+			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="Hquery" required="true">
+			      	<span class="input-group-btn">
+			        	<button class="btn btn-default" type="submit">Go!</button>
+			      	</span>
+			    </div><!-- /input-group -->
+			</div>
+		</form>
+		<div class="row">
+			<div class="table-responsive">
+				<table class="table" ng-hide="Hresults.length">
+			    	<tr ng-repeat="hype in Hresults">	
+			    		<td>
+			    			<img src="{{hype.thumb_url_medium}}"></img>
+			    		</td>
+			    		<td>
+			    			{{hype.artist}}-{{hype.title}}
+			    		</td>
+			    		<td>
+			    			<button ng-click="addHTrack(hype.postid)">Add</button>
+			    		</td>
+			    	</tr>
+				</table>
 			</div>
 		</div>
-	</div>
+    </tab>
+    <tab heading="Spotify">
+		<form id="searchS" data-ng-submit="searchSpotify()">
+			<div class="row">
+			    <div class="input-group">
+			      <input type="text" class="form-control" placeholder="Search for..." ng-model="Squery" required="true">
+			      	<span class="input-group-btn">
+			        	<button class="btn btn-default" type="submit">Go!</button>
+			      	</span>
+			    </div><!-- /input-group -->
+			</div>
+		</form>
+		<div class="row">
+			<div class="table-responsive">
+				<table class="table" ng-hide="Sresults.length">
+			    	<tr ng-repeat="track in Sresults.tracks.items">	
+			    		<td>
+			    			<img src="{{track.album.images.2.url}}"></img>
+			    		</td>
+			    		<td>
+			    			{{track.name}}
+			    		</td>
+			    		<td>
+			    			<button ng-click="addSTrack(track.uri)">Add</button>
+			    		</td>
+			    	</tr>
+				</table>
+			</div>
+		</div>
+    </tab>
+</tabset>
+</div>	
 </section>
