@@ -26,7 +26,7 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-				'http://connect.soundcloud.com/sdk.js'
+				'https://connect.soundcloud.com/sdk.js'
 			]
 		},
 		css: [
@@ -37,7 +37,7 @@ module.exports = {
 			'public/application.js',
 			'public/modules/*/*.js',
 			'public/modules/*/*[!tests]*/*.js',
-			'http://connect.soundcloud.com/sdk.js'
+			'https://connect.soundcloud.com/sdk.js'
 		],
 		tests: [
 			'public/lib/angular-mocks/angular-mocks.js',
