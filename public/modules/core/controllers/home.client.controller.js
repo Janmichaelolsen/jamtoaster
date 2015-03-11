@@ -2,6 +2,11 @@
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SCService', '$http', '$log',
 	function($scope, Authentication, SCService, $http, $log) {
+		$scope.tabs = [
+    { title:'Dynamic Title 1', content:'Dynamic content 1' },
+    { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
+  ];
+		
         SC.initialize({
           client_id: '7ee4ea137d2c4782d07fc465eb841845'
         });
@@ -40,7 +45,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		};
 		
 		$scope.searchHypem = function () {
-			$http.get('https://hypem.com/playlist/search/'+$scope.Hquery+'/json/1')
+			$http.get('http://hypem.com/playlist/search/'+$scope.Hquery+'/json/1')
 			.success(function(tracks){
 				$scope.Hresults = tracks;
 				$log.info(tracks);
