@@ -1,7 +1,6 @@
-<section data-ng-controller="HomeController">
 <div style="margin-top:30px;">
 <tabset>
-    <tab heading="YouTube" active="active">
+    <tab heading="YouTube" active="active" data-ng-controller="HomeController">
 		<form id="searchYT" data-ng-submit="searchYT()">
 			<div class="row">
 			    <div class="input-group">
@@ -23,14 +22,14 @@
 			    			{{vid.snippet.title}}
 			    		</td>
 			    		<td>
-			    			<button ng-click="addYTTrack(vid.id.videoId)">Add</button>
+			    			<button ng-click="addYTTrack(vid.id.videoId)">Play</button>
 			    		</td>
 			    	</tr>
 				</table>
 			</div>
 		</div>
     </tab>
-    <tab heading="Soundcloud">
+    <tab heading="Soundcloud" data-ng-controller="HomeController">
 		<form id="searchSC" data-ng-submit="searchSC()">
 			<div class="row">
 			    <div class="input-group">
@@ -52,14 +51,14 @@
 			    			{{sound.title}}
 			    		</td>
 			    		<td>
-			    			<button ng-click="addSCTrack(sound.id)">Add</button>
+			    			<button ng-click="addSCTrack(sound.id)">Play</button>
 			    		</td>
 			    	</tr>
 				</table>
 			</div>
 		</div>
     </tab>
-    <tab heading="Hypem">
+    <tab heading="Hypem" data-ng-controller="HomeController">
 		<form id="searchH" data-ng-submit="searchHypem()">
 			<div class="row">
 			    <div class="input-group">
@@ -81,18 +80,18 @@
 			    			{{hype.artist}}-{{hype.title}}
 			    		</td>
 			    		<td>
-			    			<button ng-click="addHTrack(hype.postid)">Add</button>
+			    			<button ng-click="addHTrack(hype.postid)">Play</button>
 			    		</td>
 			    	</tr>
 				</table>
 			</div>
 		</div>
     </tab>
-    <tab heading="Spotify">
+    <tab heading="Spotify" data-ng-controller="HomeController">
 		<form id="searchS" data-ng-submit="searchSpotify()">
 			<div class="row">
 			    <div class="input-group">
-			      <input type="text" class="form-control" placeholder="Search for..." ng-model="Squery" required="true">
+			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="Squery" required="true">
 			      	<span class="input-group-btn">
 			        	<button class="btn btn-default" type="submit">Go!</button>
 			      	</span>
@@ -110,7 +109,7 @@
 			    			{{track.name}}
 			    		</td>
 			    		<td>
-			    			<button ng-click="addSTrack(track.uri)">Add</button>
+			    			<button ng-click="addSTrack(track.uri)">Play</button>
 			    		</td>
 			    	</tr>
 				</table>
@@ -118,5 +117,4 @@
 		</div>
     </tab>
 </tabset>
-</div>	
-</section>
+</div>

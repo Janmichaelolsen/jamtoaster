@@ -2,11 +2,6 @@
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SCService', '$http', '$log',
 	function($scope, Authentication, SCService, $http, $log) {
-		$scope.tabs = [
-    { title:'Dynamic Title 1', content:'Dynamic content 1' },
-    { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
-  ];
-		
         SC.initialize({
           client_id: '7ee4ea137d2c4782d07fc465eb841845'
         });
@@ -36,7 +31,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		
 		$scope.searchSC = function () {
 			SC.get('/tracks', { q: $scope.SCquery, license: 'cc-by-sa' }, function(tracks) {
-			  $scope.SCresults = tracks.slice(1, 11);
+			$scope.$apply(function () {
+	            $scope.SCresults = tracks.slice(1, 11);
+	        });
 			  $log.info(tracks.slice(1,11));
 			});
 		};

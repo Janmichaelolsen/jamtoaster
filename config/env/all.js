@@ -26,7 +26,9 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-				'https://connect.soundcloud.com/sdk.js'
+				'https://connect.soundcloud.com/sdk.js',
+				'https://w.soundcloud.com/player/api.js',
+				'https://www.youtube.com/iframe_api'
 			]
 		},
 		css: [
@@ -36,8 +38,7 @@ module.exports = {
 			'public/config.js',
 			'public/application.js',
 			'public/modules/*/*.js',
-			'public/modules/*/*[!tests]*/*.js',
-			'https://connect.soundcloud.com/sdk.js'
+			'public/modules/*/*[!tests]*/*.js'
 		],
 		tests: [
 			'public/lib/angular-mocks/angular-mocks.js',
