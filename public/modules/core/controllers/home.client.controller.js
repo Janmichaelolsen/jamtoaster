@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'SCService', '$http', '$log',
-	function($scope, Authentication, SCService, $http, $log) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log',
+	function($scope, Authentication, $http, $log) {
         SC.initialize({
           client_id: '7ee4ea137d2c4782d07fc465eb841845'
         });
