@@ -1,11 +1,27 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log',
-	function($scope, Authentication, $http, $log) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService',
+	function($scope, Authentication, $http, $log, VideosService) {
+		var tag = document.createElement('script');
+		tag.src = "http://www.youtube.com/iframe_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         SC.initialize({
           client_id: '7ee4ea137d2c4782d07fc465eb841845'
         });
         
+	    function init() {
+	      $scope.youtube = VideosService.getYoutube();
+	      $scope.playlist = true;
+	    }
+	    init();
+	    $scope.launch = function (id, title) {
+	    	$log.info('Launched id:' + id + ' and title:' + title);
+	      	VideosService.launchPlayer(id, title);
+	      
+	    };
+
+		        
 		$scope.searchYT = function () {
 	    	$http.get('https://www.googleapis.com/youtube/v3/search', {
 	        params: {
@@ -18,8 +34,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	        }
 	      })
 	      .success( function (data) {
-	      	$log.info(data);
 	        $scope.YTresults = data;
+	        $log.info(data);
 	      })
 	      .error( function () {
 	        $log.info('Search error');
@@ -34,7 +50,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			$scope.$apply(function () {
 	            $scope.SCresults = tracks.slice(1, 11);
 	        });
-			  $log.info(tracks.slice(1,11));
 			});
 		};
 		$scope.addSCTrack = function (soundId) {
@@ -45,7 +60,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			$http.get('http://hypem.com/playlist/search/'+$scope.Hquery+'/json/1')
 			.success(function(tracks){
 				$scope.Hresults = tracks;
-				$log.info(tracks);
 			});
 		};
 		$scope.addHTrack = function (hypeId) {
@@ -55,7 +69,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    $scope.searchSpotify = function () {
 	    	$http.get('https://api.spotify.com/v1/search?q='+$scope.Squery+'&type=track')
 	    	.success(function(tracks){
-	    		$log.info(tracks);
 	    		$scope.Sresults = tracks;
 	    	});
 	    };

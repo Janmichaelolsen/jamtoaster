@@ -22,19 +22,11 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     {id: '8Zh0tY2NfLs', title: 'N.E.R.D. ft. Nelly Furtado - Hot N\' Fun (Boys Noize Remix) HQ'},
     {id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
     {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
-    {id: 'fTK4XTvZWmk', title: 'Housse De Racket â˜â˜€â˜ Apocalypso'}
+    {id: 'fTK4XTvZWmk', title: 'Housse De Racket Apocalypso'}
   ];
   var history = [
     {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
   ];
-
-  $window.onYouTubeIframeAPIReady = function () {
-    $log.info('Youtube API is ready');
-    youtube.ready = true;
-    service.bindPlayer('placeholder');
-    service.loadPlayer();
-    $rootScope.$apply();
-  };
 
   function onYoutubeReady (event) {
     $log.info('YouTube Player is ready');
@@ -44,11 +36,11 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   }
 
   function onYoutubeStateChange (event) {
-    if (event.data == YT.PlayerState.PLAYING) {
+    if (event.data === YT.PlayerState.PLAYING) {
       youtube.state = 'playing';
-    } else if (event.data == YT.PlayerState.PAUSED) {
+    } else if (event.data === YT.PlayerState.PAUSED) {
       youtube.state = 'paused';
-    } else if (event.data == YT.PlayerState.ENDED) {
+    } else if (event.data === YT.PlayerState.ENDED) {
       youtube.state = 'ended';
       service.launchPlayer(upcoming[0].id, upcoming[0].title);
       service.archiveVideo(upcoming[0].id, upcoming[0].title);
@@ -92,7 +84,7 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     youtube.videoId = id;
     youtube.videoTitle = title;
     return youtube;
-  }
+  };
 
   this.listResults = function (data) {
     results.length = 0;
@@ -106,7 +98,7 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
       });
     }
     return results;
-  }
+  };
 
   this.queueVideo = function (id, title) {
     upcoming.push({
@@ -148,5 +140,11 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   this.getHistory = function () {
     return history;
   };
+  $log.info('Youtube API is ready');
+  youtube.ready = true;
+  service.bindPlayer('placeholder');
+  service.loadPlayer();
+  $rootScope.$apply();
+
 
 }]);
