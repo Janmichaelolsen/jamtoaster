@@ -56,7 +56,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.searchSC = function () {
 			SC.get('/tracks', { q: $scope.SCquery }, function(tracks) {
 			$scope.$apply(function () {
-	            $scope.SCresults = tracks;
+	            $scope.SCresults = tracks.slice(0,10);
 	        });
 			});
 		};
