@@ -1,3 +1,4 @@
+<section data-ng-controller="HomeController">
 <div class="col-sm-5">
 <div style="margin-top:30px;">
 <tabset>
@@ -5,7 +6,7 @@
 		<form id="searchYT" data-ng-submit="searchYT()">
 			<div class="row">
 			    <div class="input-group">
-			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="YTquery" required="true">
+			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="YTquery" required="true" ng-change="searchYT()">
 			      	<span class="input-group-btn">
 			        	<button id="submit" class="btn btn-default" type="submit">Go!</button>
 			      	</span>
@@ -34,7 +35,7 @@
 		<form id="searchSC" data-ng-submit="searchSC()">
 			<div class="row">
 			    <div class="input-group">
-			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="SCquery" required="true">
+			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="SCquery" required="true" ng-change="searchSC()"> 
 			      	<span class="input-group-btn">
 			        	<button class="btn btn-default" type="submit">Go!</button>
 			      	</span>
@@ -63,7 +64,7 @@
 		<form id="searchH" data-ng-submit="searchHypem()">
 			<div class="row">
 			    <div class="input-group">
-			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="Hquery" required="true">
+			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="Hquery" required="true" ng-change="searchHypem()">
 			      	<span class="input-group-btn">
 			        	<button class="btn btn-default" type="submit">Go!</button>
 			      	</span>
@@ -92,7 +93,7 @@
 		<form id="searchS" data-ng-submit="searchSpotify()">
 			<div class="row">
 			    <div class="input-group">
-			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="Squery" required="true">
+			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="Squery" required="true" ng-change="searchSpotify()">
 			      	<span class="input-group-btn">
 			        	<button class="btn btn-default" type="submit">Go!</button>
 			      	</span>
@@ -127,4 +128,6 @@
     <section id="scplayer" style="">
 		<iframe id="sc-widget" width="100%" height="166" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=false"></iframe>
 	</section>
+	<input type="range" ng-model="volumeVal" ng-change="changeVolume()"/>
 </div>
+</section>

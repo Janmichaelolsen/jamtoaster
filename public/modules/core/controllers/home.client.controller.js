@@ -73,6 +73,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			});
 			$log.info(soundId);
 		};
+		$scope.volumeVal = 50;
+		$scope.changeVolume = function () {
+			widget.setVolume($scope.volumeVal/100);
+			$scope.youtube.player.setVolume($scope.volumeVal);
+		};
 		
 		//Hypem
 
@@ -80,6 +85,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			$http.get('http://hypem.com/playlist/search/'+$scope.Hquery+'/json/1')
 			.success(function(tracks){
 				$scope.Hresults = tracks;
+				$log.info(tracks);
 			});
 		};
 		$scope.addHTrack = function (hypeId) {
@@ -105,7 +111,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    	});
 	    };
 	    $scope.addSTrack = function (trackId) {
-			$log.info(trackId);
+			$log.info("trackId");
 		};
 	    $scope.authentication = Authentication;
 	}
