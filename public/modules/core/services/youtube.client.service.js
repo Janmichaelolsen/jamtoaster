@@ -10,20 +10,11 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     playerId: null,
     videoId: null,
     videoTitle: null,
-    playerHeight: '480',
-    playerWidth: '640',
+    playerHeight: '80',
+    playerWidth: '100',
     state: 'stopped'
   };
-  var results = [];
-  var upcoming = [
-    {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
-    {id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'},
-    {id: 'ktoaj1IpTbw', title: 'CHVRCHES - Gun'},
-    {id: '8Zh0tY2NfLs', title: 'N.E.R.D. ft. Nelly Furtado - Hot N\' Fun (Boys Noize Remix) HQ'},
-    {id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
-    {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
-    {id: 'fTK4XTvZWmk', title: 'Housse De Racket Apocalypso'}
-  ];
+
   var history = [
     {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
   ];
@@ -42,9 +33,6 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
       youtube.state = 'paused';
     } else if (event.data === YT.PlayerState.ENDED) {
       youtube.state = 'ended';
-      service.launchPlayer(upcoming[0].id, upcoming[0].title);
-      service.archiveVideo(upcoming[0].id, upcoming[0].title);
-      service.deleteVideo(upcoming, upcoming[0].id);
     }
     $rootScope.$apply();
   }
@@ -86,28 +74,6 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     return youtube;
   };
 
-  this.listResults = function (data) {
-    results.length = 0;
-    for (var i = data.items.length - 1; i >= 0; i--) {
-      results.push({
-        id: data.items[i].id.videoId,
-        title: data.items[i].snippet.title,
-        description: data.items[i].snippet.description,
-        thumbnail: data.items[i].snippet.thumbnails.default.url,
-        author: data.items[i].snippet.channelTitle
-      });
-    }
-    return results;
-  };
-
-  this.queueVideo = function (id, title) {
-    upcoming.push({
-      id: id,
-      title: title
-    });
-    return upcoming;
-  };
-
   this.archiveVideo = function (id, title) {
     history.unshift({
       id: id,
@@ -127,14 +93,6 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
 
   this.getYoutube = function () {
     return youtube;
-  };
-
-  this.getResults = function () {
-    return results;
-  };
-
-  this.getUpcoming = function () {
-    return upcoming;
   };
 
   this.getHistory = function () {

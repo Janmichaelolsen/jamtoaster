@@ -16,7 +16,7 @@
 		<div class="row">
 			<div class="table-responsive">
 				<table class="table" ng-hide="YTresults.length">
-			    	<tr ng-repeat="vid in YTresults.items">	
+			    	<tr ng-repeat="vid in YTresults.items">
 			    		<td>
 			    			<img src="{{vid.snippet.thumbnails.default.url}}"></img>
 			    		</td>
@@ -35,7 +35,7 @@
 		<form id="searchSC" data-ng-submit="searchSC()">
 			<div class="row">
 			    <div class="input-group">
-			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="SCquery" required="true" ng-change="searchSC()"> 
+			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="SCquery" required="true" ng-change="searchSC()">
 			      	<span class="input-group-btn">
 			        	<button class="btn btn-default" type="submit">Go!</button>
 			      	</span>
@@ -45,7 +45,7 @@
 		<div class="row">
 			<div class="table-responsive">
 				<table class="table">
-			    	<tr ng-repeat="sound in SCresults">	
+			    	<tr ng-repeat="sound in SCresults">
 			    		<td>
 			    			<img src="{{sound.artwork_url}}"></img>
 			    		</td>
@@ -74,7 +74,7 @@
 		<div class="row">
 			<div class="table-responsive">
 				<table class="table" ng-hide="Hresults.length">
-			    	<tr ng-repeat="hype in Hresults">	
+			    	<tr ng-repeat="hype in Hresults">
 			    		<td>
 			    			<img src="{{hype.thumb_url_medium}}"></img>
 			    		</td>
@@ -103,7 +103,7 @@
 		<div class="row">
 			<div class="table-responsive">
 				<table class="table" ng-hide="Sresults.length">
-			    	<tr ng-repeat="track in Sresults.tracks.items">	
+			    	<tr ng-repeat="track in Sresults.tracks.items">
 			    		<td>
 			    			<img src="{{track.album.images.2.url}}"></img>
 			    		</td>
@@ -122,12 +122,6 @@
 </div>
 </div>
 <div class="col-sm-4">
-	<div id="player">
-      <div id="placeholder"></div>
-    </div>
-    <section id="scplayer" style="">
-		<iframe id="sc-widget" width="100%" height="166" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=false"></iframe>
-	</section>
-	<input type="range" ng-model="volumeVal" ng-change="changeVolume()"/>
+	  
 </div>
 </section>

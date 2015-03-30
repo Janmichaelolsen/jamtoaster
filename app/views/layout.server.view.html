@@ -41,7 +41,7 @@
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-	
+
 </head>
 
 <body class="ng-cloak">
@@ -50,6 +50,7 @@
 		<section class="container">
 			{% block content %}{% endblock %}
 		</section>
+		<section data-ng-include="'/modules/core/views/playercontrols.html'" class="navbar navbar-fixed-bottom"></section>
 	</section>
 
 	<!--Embedding The User Object-->
@@ -58,7 +59,7 @@
 	</script>
 
 	<!--Application JavaScript Files-->
-	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
+	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 
 	{% if process.env.NODE_ENV === 'development' %}
 	<!--Livereload script rendered -->

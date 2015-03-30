@@ -15,7 +15,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    $scope.launch = function (id, title) {
 	    	$log.info('Launched id:' + id + ' and title:' + title);
 	      	VideosService.launchPlayer(id, title);
-	      
+
 	    };
 	    $scope.searchYT = function () {
 	    	$http.get('https://www.googleapis.com/youtube/v3/search', {
@@ -78,7 +78,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			widget.setVolume($scope.volumeVal/100);
 			$scope.youtube.player.setVolume($scope.volumeVal);
 		};
-		
+		$scope.togglePlayer = function(){
+			
+		};
+
 		//Hypem
 
 		$scope.searchHypem = function () {
@@ -103,7 +106,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		};
 
 		//Spotify
-	    
+
 	    $scope.searchSpotify = function () {
 	    	$http.get('https://api.spotify.com/v1/search?q='+$scope.Squery+'&type=track')
 	    	.success(function(tracks){
@@ -111,8 +114,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    	});
 	    };
 	    $scope.addSTrack = function (trackId) {
-			$log.info("trackId");
-		};
+				$log.info("trackId");
+			};
 	    $scope.authentication = Authentication;
 	}
 ]);
