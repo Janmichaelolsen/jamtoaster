@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService',
-	function($scope, Authentication, $http, $log, VideosService) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'PlayerService',
+	function($scope, Authentication, $http, $log, VideosService, PlayerService) {
+		$scope.currentService = 'yt';
 		//Youtube stuffs
 		var tag = document.createElement('script');
-		tag.src = "http://www.youtube.com/iframe_api";
+		tag.src = 'http://www.youtube.com/iframe_api';
 		var firstScriptTag = document.getElementsByTagName('script')[0];
 		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 		function init() {
@@ -48,10 +49,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         });
 
 		var widgetIframe = document.getElementById('sc-widget'),
-		    widget       = SC.Widget(widgetIframe)
+		    widget       = SC.Widget(widgetIframe);
 
 		var newWidgetUrl = 'http://api.soundcloud.com/tracks/',
-		    CLIENT_ID    = '7ee4ea137d2c4782d07fc465eb841845'
+		    CLIENT_ID    = '7ee4ea137d2c4782d07fc465eb841845';
 
 		$scope.searchSC = function () {
 			SC.get('/tracks', { q: $scope.SCquery }, function(tracks) {
@@ -78,8 +79,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			widget.setVolume($scope.volumeVal/100);
 			$scope.youtube.player.setVolume($scope.volumeVal);
 		};
-		$scope.togglePlayer = function(){
-			
+		$scope.toggle = true;
+		$scope.toggleText = 'Play';
+		$scope.togglePlay = function () {
+			$scope.toggle = !$scope.toggle;
+			$scope.toggleText = $scope.toggle ? 'Play' : 'Pause';
 		};
 
 		//Hypem
@@ -114,7 +118,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    	});
 	    };
 	    $scope.addSTrack = function (trackId) {
-				$log.info("trackId");
+				$log.info(trackId);
 			};
 	    $scope.authentication = Authentication;
 	}
