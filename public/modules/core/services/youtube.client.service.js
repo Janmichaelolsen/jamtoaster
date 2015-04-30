@@ -10,8 +10,8 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     playerId: null,
     videoId: null,
     videoTitle: null,
-    playerHeight: '600',
-    playerWidth: '600',
+    playerHeight: '80',
+    playerWidth: '100',
     state: 'stopped'
   };
 
