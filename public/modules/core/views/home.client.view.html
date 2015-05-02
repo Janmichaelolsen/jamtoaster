@@ -25,6 +25,17 @@
 			    		</td>
 			    		<td>
 			    			<button ng-click="launch(vid.id.videoId, vid.snippet.title);" class="btn btn-success">Play</button>
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                    Add to..
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                      <ul ng-repeat="list in playlists">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="addYTTrack(vid.id.videoId, list);">{{list.name}}</a></li>
+                      </ul>
+                  </ul>
+                </div>
 			    		</td>
 			    	</tr>
 				</table>
@@ -54,13 +65,22 @@
 			    		</td>
 			    		<td>
 			    			<button ng-click="addSCTrack(sound.id)" class="btn btn-success">Play</button>
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                    Add to..
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2" ng-repeat="list in playlists">
+                    <li role="presentation"><a role="menuitem" tabindex="-1">{{list.name}}</a></li>
+                  </ul>
+                </div>
 			    		</td>
 			    	</tr>
 				</table>
 			</div>
 		</div>
     </tab>
-    <tab heading="Hypem" data-ng-controller="HomeController">
+    <tab heading="Hypem" data-ng-controller="HomeController" disabled="true">
 		<form id="searchH" data-ng-submit="searchHypem()">
 			<div class="row">
 			    <div class="input-group">
@@ -89,7 +109,7 @@
 			</div>
 		</div>
     </tab>
-    <tab heading="Spotify" data-ng-controller="HomeController">
+    <tab heading="Spotify" data-ng-controller="HomeController" disabled="true">
 		<form id="searchS" data-ng-submit="searchSpotify()">
 			<div class="row">
 			    <div class="input-group">
@@ -119,8 +139,10 @@
 		</div>
     </tab>
 </tabset>
+<div ng-show="loading">Loading...</div>
 </div>
 </div>
+
 <div class="col-sm-4">
 
 </div>

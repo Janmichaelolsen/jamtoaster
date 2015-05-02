@@ -16,6 +16,10 @@ var PlaylistSchema = new Schema({
 		required: 'Please fill Playlist name',
 		trim: true
 	},
+	songs: {
+		type: Array,
+		default: []
+	},
 	created: {
 		type: Date,
 		default: Date.now

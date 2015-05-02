@@ -10,12 +10,9 @@
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="playlist.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="playlist.user.displayName"></span>
-		</em>
-	</small>
+	<h3>Songs:</h3>
+	<br>
+	<div ng-repeat="song in playlist.songs">
+		{{song}}  <button class="btn btn-danger" ng-click="removeSong(song);">Remove</button><br>
+	</div>
 </section>

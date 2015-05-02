@@ -25,7 +25,7 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 
 		// Remove existing Playlist
 		$scope.remove = function(playlist) {
-			if ( playlist ) { 
+			if ( playlist ) {
 				playlist.$remove();
 
 				for (var i in $scope.playlists) {
@@ -50,6 +50,20 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 				$scope.error = errorResponse.data.message;
 			});
 		};
+		$scope.removeSong = function(songId) {
+			var playlist = $scope.playlist;
+			var songs = playlist.songs;
+			var index = songs.indexOf(songId);
+			if(index > -1){
+				songs.splice(index, 1);
+			}
+			playlist.songs = songs;
+			playlist.$update(function() {
+				$location.path('playlists/' + playlist._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
 
 		// Find a list of Playlists
 		$scope.find = function() {
@@ -58,7 +72,7 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 
 		// Find existing Playlist
 		$scope.findOne = function() {
-			$scope.playlist = Playlists.get({ 
+			$scope.playlist = Playlists.get({
 				playlistId: $stateParams.playlistId
 			});
 		};

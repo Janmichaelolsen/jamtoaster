@@ -3,6 +3,9 @@
 angular.module('core').service('VideosService', ['$window', '$rootScope', '$log', function ($window, $rootScope, $log) {
 
   var service = this;
+  var s = document.createElement('script'); // use global document since Angular's $document is weak
+  s.src = 'https://www.youtube.com/iframe_api';
+  document.body.appendChild(s);
 
   var youtube = {
     ready: false,
