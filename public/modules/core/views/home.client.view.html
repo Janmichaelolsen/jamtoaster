@@ -70,8 +70,10 @@
                     Add to..
                     <span class="caret"></span>
                   </button>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2" ng-repeat="list in playlists">
-                    <li role="presentation"><a role="menuitem" tabindex="-1">{{list.name}}</a></li>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+                    <ul  ng-repeat="list in playlists">
+                      <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="addSCTrack(sound.id, list);">{{list.name}}</a></li>
+                    </ul>
                   </ul>
                 </div>
 			    		</td>

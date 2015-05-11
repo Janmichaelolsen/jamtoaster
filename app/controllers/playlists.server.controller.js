@@ -72,22 +72,22 @@ exports.delete = function(req, res) {
 /**
  * List of Playlists
  */
-exports.list = function(req, res) { 
-	Playlist.find().sort('-created').populate('user', 'displayName').exec(function(err, playlists) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(playlists);
-		}
-	});
+exports.list = function(req, res) {
+	Playlist.find({"user": mongoose.Types.ObjectId(req.user._id)}).sort('-created').populate('user', 'displayName').exec(function(err, pets) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(pets);
+        }
+    });
 };
 
 /**
  * Playlist middleware
  */
-exports.playlistByID = function(req, res, next, id) { 
+exports.playlistByID = function(req, res, next, id) {
 	Playlist.findById(id).populate('user', 'displayName').exec(function(err, playlist) {
 		if (err) return next(err);
 		if (! playlist) return next(new Error('Failed to load Playlist ' + id));

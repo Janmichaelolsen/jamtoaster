@@ -2,7 +2,6 @@
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'PlayerService', 'Playlists',
 	function($scope, Authentication, $http, $log, VideosService, PlayerService, Playlists) {
-		$scope.playlists = Playlists.query();
 		$scope.loading = false;
 		$scope.currentService = 'yt';
 		//Youtube stuffs
@@ -74,7 +73,14 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	        });
 			});
 		};
-		$scope.addSCTrack = function (soundId) {
+		$scope.addSCTrack = function (soundId, list) {
+			var songs = list.songs;
+			songs.push("sc|"+soundId);
+			var playlist = list;
+			playlist.songs = songs;
+			playlist.$update();
+		};
+		$scope.playSCTrack = function (soundId) {
 			widget.load('http://api.soundcloud.com/tracks/'+soundId, {
 			  show_artwork: false,
 			  auto_play:true,
@@ -85,8 +91,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			  show_playcount:false,
 			  show_user:false,
 			});
-			$log.info(soundId);
-		};
+		}
 		$scope.volumeVal = 50;
 		$scope.changeVolume = function () {
 			widget.setVolume($scope.volumeVal/100);
@@ -146,5 +151,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 				$log.info(trackId);
 			};
 	    $scope.authentication = Authentication;
+			$scope.p = Playlists.query();
+			$scope.playlists = $scope.p;
 	}
 ]);
