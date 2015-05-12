@@ -4,6 +4,25 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	function($scope, Authentication, $http, $log, VideosService, PlayerService, Playlists) {
 		$scope.loading = false;
 		$scope.currentService = 'yt';
+
+		$scope.volumeVal = 50;
+		widget.setVolume($scope.volumeVal/100);
+		$scope.youtube.player.setVolume($scope.volumeVal);
+		$scope.changeVolume = function () {
+			widget.setVolume($scope.volumeVal/100);
+			$scope.youtube.player.setVolume($scope.volumeVal);
+		};
+		$scope.toggle = true;
+		$scope.toggleText = 'Play';
+		$scope.togglePlay = function () {
+			$scope.toggle = !$scope.toggle;
+			$scope.toggleText = $scope.toggle ? 'Play' : 'Pause';
+			if($scope.toggle === true){
+				$scope.youtube.player.pauseVideo();
+			}else {
+				$scope.youtube.player.playVideo();
+			}
+		};
 		//Youtube stuffs
 		var tag = document.createElement('script');
 		tag.src = 'https://www.youtube.com/iframe_api';
@@ -17,7 +36,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    $scope.launch = function (id, title) {
 	    	$log.info('Launched id:' + id + ' and title:' + title);
 	      	VideosService.launchPlayer(id, title);
-
 	    };
 	    $scope.searchYT = function () {
 				$scope.loading = true;
@@ -38,20 +56,39 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	      })
 	      .error( function () {
 					$scope.loading = false;
-	        $scope.errorText="An error occured, check your connection or try refreshing the page.";
+	        $scope.errorText='An error occured, check your connection or try refreshing the page.';
 	      });
 	    };
+			$scope.findRelated = function(videoId){
+				$http.get('https://www.googleapis.com/youtube/v3/search', {
+	        params: {
+	          key: 'AIzaSyBi6y6Vu-y_tDrpT5YdNsFAHKlgKD_TGuM',
+	          type: 'video',
+	          maxResults: '10',
+	          part: 'id,snippet',
+	          fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle',
+						relatedToVideoId: videoId
+	        }
+	      })
+	      .success( function (data) {
+					$scope.loading = false;
+	        $scope.relatedVids = data;
+	        $log.info($scope.relatedVids);
+	      })
+	      .error( function () {
+					$scope.loading = false;
+	        $scope.errorText='An error occured, check your connection or try refreshing the page.';
+	      });
+			}
 	    $scope.addYTTrack = function (videoId, list) {
-	    	$log.info(videoId + " to "+list);
+	    	$log.info(videoId + ' to '+list);
 				var songs = list.songs;
-				songs.push("yt|"+videoId);
+				songs.push('yt|'+videoId);
 				var playlist = list;
 				playlist.songs = songs;
 				playlist.$update();
 
 		};
-
-
 	    //Soundcloud stuffs
 
         SC.initialize({
@@ -70,12 +107,13 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 				$scope.loading = false;
 			$scope.$apply(function () {
 	            $scope.SCresults = tracks.slice(0,10);
+							$log.info($scope.SCresults);
 	        });
 			});
 		};
 		$scope.addSCTrack = function (soundId, list) {
 			var songs = list.songs;
-			songs.push("sc|"+soundId);
+			songs.push('sc|'+soundId);
 			var playlist = list;
 			playlist.songs = songs;
 			playlist.$update();
@@ -92,17 +130,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			  show_user:false,
 			});
 		}
-		$scope.volumeVal = 50;
-		$scope.changeVolume = function () {
-			widget.setVolume($scope.volumeVal/100);
-			$scope.youtube.player.setVolume($scope.volumeVal);
-		};
-		$scope.toggle = true;
-		$scope.toggleText = 'Play';
-		$scope.togglePlay = function () {
-			$scope.toggle = !$scope.toggle;
-			$scope.toggleText = $scope.toggle ? 'Play' : 'Pause';
-		};
 
 		//Hypem
 
@@ -116,7 +143,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			})
 			.error(function(){
 				$scope.loading = false;
-				$scope.errorText = "An error occured, check your connection or try refreshing the page.";
+				$scope.errorText = 'An error occured, check your connection or try refreshing the page.';
 			});
 		};
 		$scope.addHTrack = function (hypeId) {
@@ -144,7 +171,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    	})
 				.error(function(){
 						$scope.loading = false;
-						$scope.errorText = "An error occured, check your connection or try refreshing the page.";
+						$scope.errorText = 'An error occured, check your connection or try refreshing the page.';
 				});
 	    };
 	    $scope.addSTrack = function (trackId) {

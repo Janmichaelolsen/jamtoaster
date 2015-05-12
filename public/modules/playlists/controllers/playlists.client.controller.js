@@ -76,5 +76,7 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 				playlistId: $stateParams.playlistId
 			});
 		};
+		$scope.launchList = function(list){
+		};
 	}
 ]);
