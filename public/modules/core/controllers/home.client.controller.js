@@ -4,7 +4,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	function($scope, Authentication, $http, $log, VideosService, PlayerService, Playlists) {
 		$scope.loading = false;
 		$scope.currentService = 'yt';
-
+		$scope.p = Playlists.query();
+		$scope.playlists = $scope.p;
 		$scope.volumeVal = 50;
 		$scope.changeVolume = function () {
 			widget.setVolume($scope.volumeVal/100);
@@ -177,7 +178,5 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 				$log.info(trackId);
 			};
 	    $scope.authentication = Authentication;
-			$scope.p = Playlists.query();
-			$scope.playlists = $scope.p;
 	}
 ]);

@@ -1,8 +1,7 @@
 <section data-ng-controller="HomeController">
 <div style="margin-top:30px;">
 <div class="col-sm-12">
-  <p>Welcome to Jamtoaster. I am just using this web page to learn how a particular framework works, but you are welcome to create a user and try it out.
-    I will be adding frequent updates so feel free to stop by anytime to check out the new featurs :3:3</p>
+  <p>Welcome to Jamtoaster. I am just using this web page to learn how a particular framework works, but you are welcome to create a user and try it out.</p>
 <tabset>
     <tab heading="YouTube" active="active" data-ng-controller="HomeController">
 		<form id="searchYT" data-ng-submit="searchYT()">
@@ -116,6 +115,7 @@
 		</div>
     </tab>
     <tab heading="Hypem" data-ng-controller="HomeController" disabled="true">
+		<!--
 		<form id="searchH" data-ng-submit="searchHypem()">
 			<div class="row">
 			    <div class="input-group">
@@ -123,7 +123,7 @@
 			      	<span class="input-group-btn">
 			        	<button class="btn btn-default" type="submit">Go!</button>
 			      	</span>
-			    </div><!-- /input-group -->
+			    </div> 
 			</div>
 		</form>
 		<div class="row">
@@ -143,8 +143,10 @@
 				</table>
 			</div>
 		</div>
+		-->
     </tab>
     <tab heading="Spotify" data-ng-controller="HomeController" disabled="true">
+		<!--
 		<form id="searchS" data-ng-submit="searchSpotify()">
 			<div class="row">
 			    <div class="input-group">
@@ -152,7 +154,7 @@
 			      	<span class="input-group-btn">
 			        	<button class="btn btn-default" type="submit">Go!</button>
 			      	</span>
-			    </div><!-- /input-group -->
+			    </div>
 			</div>
 		</form>
 		<div class="row">
@@ -172,11 +174,8 @@
 				</table>
 			</div>
 		</div>
+		-->
     </tab>
 </tabset>
-<div ng-show="loading">Loading...</div>
-</div>
-<div class="col-sm-5">
-</div>
 </div>
 </section>
