@@ -22,10 +22,6 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
   ];
 
-  function queueVideo(videoId){
-    youtube.player.cueVideoById(videoId);
-  }
-
   function onYoutubeReady (event) {
     $log.info('YouTube Player is ready');
     youtube.player.cueVideoById(history[0].id);

@@ -6,8 +6,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.currentService = 'yt';
 
 		$scope.volumeVal = 50;
-		widget.setVolume($scope.volumeVal/100);
-		$scope.youtube.player.setVolume($scope.volumeVal);
 		$scope.changeVolume = function () {
 			widget.setVolume($scope.volumeVal/100);
 			$scope.youtube.player.setVolume($scope.volumeVal);
@@ -36,6 +34,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    $scope.launch = function (id, title) {
 	    	$log.info('Launched id:' + id + ' and title:' + title);
 	      	VideosService.launchPlayer(id, title);
+
 	    };
 	    $scope.searchYT = function () {
 				$scope.loading = true;
@@ -56,7 +55,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	      })
 	      .error( function () {
 					$scope.loading = false;
-	        $scope.errorText='An error occured, check your connection or try refreshing the page.';
+	        $scope.errorText="An error occured, check your connection or try refreshing the page.";
 	      });
 	    };
 			$scope.findRelated = function(videoId){
@@ -77,13 +76,13 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	      })
 	      .error( function () {
 					$scope.loading = false;
-	        $scope.errorText='An error occured, check your connection or try refreshing the page.';
+	        $scope.errorText="An error occured, check your connection or try refreshing the page.";
 	      });
 			}
 	    $scope.addYTTrack = function (videoId, list) {
-	    	$log.info(videoId + ' to '+list);
+	    	$log.info(videoId + " to "+list);
 				var songs = list.songs;
-				songs.push('yt|'+videoId);
+				songs.push("yt|"+videoId);
 				var playlist = list;
 				playlist.songs = songs;
 				playlist.$update();
@@ -113,7 +112,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		};
 		$scope.addSCTrack = function (soundId, list) {
 			var songs = list.songs;
-			songs.push('sc|'+soundId);
+			songs.push("sc|"+soundId);
 			var playlist = list;
 			playlist.songs = songs;
 			playlist.$update();
@@ -143,7 +142,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			})
 			.error(function(){
 				$scope.loading = false;
-				$scope.errorText = 'An error occured, check your connection or try refreshing the page.';
+				$scope.errorText = "An error occured, check your connection or try refreshing the page.";
 			});
 		};
 		$scope.addHTrack = function (hypeId) {
@@ -171,7 +170,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    	})
 				.error(function(){
 						$scope.loading = false;
-						$scope.errorText = 'An error occured, check your connection or try refreshing the page.';
+						$scope.errorText = "An error occured, check your connection or try refreshing the page.";
 				});
 	    };
 	    $scope.addSTrack = function (trackId) {
