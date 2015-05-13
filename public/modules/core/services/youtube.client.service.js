@@ -29,6 +29,8 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   }
   function onYoutubeReady (event) {
     youtube.player.cueVideoById('NT5SSgY21zg');
+    youtube.videoId = 'NT5SSgY21zg';
+    youtube.videoTitle = 'Awesome song!';
   }
 
   function onYoutubeStateChange (event) {
