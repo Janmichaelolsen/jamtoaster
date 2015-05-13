@@ -3,7 +3,7 @@
 angular.module('core').service('VideosService', ['$window', '$rootScope', '$log', function ($window, $rootScope, $log) {
     
   var shuffle = false;
-  var playlist = [];
+  var playlist = ['NT5SSgY21zg'];
   var service = this;
   var s = document.createElement('script'); // use global document since Angular's $document is weak
   s.src = 'https://www.youtube.com/iframe_api';
@@ -25,7 +25,12 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     this.launchPlayer(playlist[0], "Title");
   };
   this.nextSong = function(){
-    this.launchPlayer(playlist[Math.floor((Math.random() * playlist.length) + 0)], "Title");
+    if(playlist.length == 1){
+      this.launchPlayer(playlist[0], "Title");
+    }else {
+      this.launchPlayer(playlist[Math.floor((Math.random() * playlist.length-1) + 0)], "Title");
+    }
+    
   }
   function onYoutubeReady (event) {
     youtube.player.cueVideoById('NT5SSgY21zg');
@@ -102,15 +107,9 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   this.getYoutube = function () {
     return youtube;
   };
-
-  this.getHistory = function () {
-    return history;
-  };
-  $log.info('Youtube API is ready');
   youtube.ready = true;
   service.bindPlayer('placeholder');
   service.loadPlayer();
   $rootScope.$apply();
-
-
+  $log.info(youtube);
 }]);
