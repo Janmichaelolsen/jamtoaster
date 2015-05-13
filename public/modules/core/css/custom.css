@@ -1,0 +1,36 @@
+.dd > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #fff;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.dd > li > a:hover,
+.dd > li > a:focus {
+  text-decoration: none;
+  background-color: #39444e;
+}
+.dd > .active > a,
+.dd > .active > a:hover,
+.dd > .active > a:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #337ab7;
+  outline: 0;
+}
+.dd > .disabled > a,
+.dd > .disabled > a:hover,
+.dd > .disabled > a:focus {
+  color: #777;
+}
+.dd > .disabled > a:hover,
+.dd > .disabled > a:focus {
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+  background-image: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
