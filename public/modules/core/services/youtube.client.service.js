@@ -28,10 +28,7 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     this.launchPlayer(playlist[Math.floor((Math.random() * playlist.length) + 0)], "Title");
   }
   function onYoutubeReady (event) {
-    $log.info('YouTube Player is ready');
-    youtube.player.cueVideoById(history[0].id);
-    youtube.videoId = history[0].id;
-    youtube.videoTitle = history[0].title;
+    youtube.player.cueVideoById('NT5SSgY21zg');
   }
 
   function onYoutubeStateChange (event) {
