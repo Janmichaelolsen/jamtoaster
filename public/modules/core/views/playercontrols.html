@@ -1,6 +1,6 @@
 <div class="container" style="display:inline;" data-ng-controller="HomeController">
     <button class="btn btn-default" ng-click="togglePlay()" style="float:left;">{{toggleText}}</button>
-    <button class="btn btn-default" type="submit" ng-click="nextSong();" style="float:left;">Next Song</button>
+    <button class="btn btn-default" type="submit" ng-click="nextSong();" style="float:left;" data-ng-show="authentication.user">Next Song</button>
     <input type="range" ng-model="volumeVal" ng-change="changeVolume();" style="width:100px; float:left;"/>
     <section id="scplayer" style="display:none">
 		<iframe id="sc-widget" width="100" height="80" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=false"></iframe>
