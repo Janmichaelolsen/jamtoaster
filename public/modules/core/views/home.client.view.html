@@ -1,7 +1,7 @@
 <section data-ng-controller="HomeController">
 <div style="margin-top:30px;">
 <div class="col-sm-12">
-  <p>Welcome to Jamtoaster. I am just using this web page to learn how a particular framework works, but you are welcome to create a user and try it out.</p>
+  <p>Welcome to Jamtoaster. I am building this web page to learn how a particular framework works and for my own use, but you are welcome to create a user and try it out.</p>
 <tabset>
     <tab heading="YouTube" active="active" data-ng-controller="HomeController">
 		<form id="searchYT" data-ng-submit="searchYT()">
@@ -33,9 +33,9 @@
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                      <ul ng-repeat="list in playlists">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="addYTTrack(vid.id.videoId, list);">{{list.name}}</a></li>
-                      </ul>
+                  	<div class="dd" ng-repeat="list in playlists">
+                    	<li role="presentation"><a role="menuitem" tabindex="-1" ng-click="addYTTrack(vid.id.videoId, list);">{{list.name}}</a></li>
+                	</div>
                   </ul>
                 </div>
                 <button ng-click="findRelated(vid.id.videoId);" class="btn btn-default">Find Related</button>
@@ -63,9 +63,9 @@
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                      <ul ng-repeat="list in playlists">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="addYTTrack(vid.id.videoId, list);">{{list.name}}</a></li>
-                      </ul>
+                  	<div class="dd" ng-repeat="list in playlists">
+                    	<li role="presentation"><a role="menuitem" tabindex="-1" ng-click="addYTTrack(vid.id.videoId, list);">{{list.name}}</a></li>
+                	</div>
                   </ul>
                 </div>
               </td>
@@ -96,7 +96,7 @@
 			    			{{sound.title}}
 			    		</td>
 			    		<td>
-			    			<button ng-click="addSCTrack(sound.id)" class="btn btn-success">Play</button>
+			    			<button ng-click="playSCTrack(sound.id)" class="btn btn-success">Play</button>
                 <div class="dropdown">
                   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
                     Add to..

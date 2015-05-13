@@ -8,4 +8,16 @@
     <section id="scplayer" style="">
 		<iframe id="sc-widget" width="100" height="80" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=false"></iframe>
   </section>
+  <div class="dropdown pull-right">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-expanded="true">
+    Playlists
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu dd" role="menu" aria-labelledby="dropdownMenu2">
+  	<li role="presentation"><a role="menuitem" tabindex="-1" href="/#!/playlists/create">+ New Playlist</a></li>
+  	<div class="dd" ng-repeat="list in playlists">
+    	<li role="presentation"><a role="menuitem" tabindex="-1" href="/#!/playlists/{{list._id}}">{{list.name}}</a></li>
+	</div>
+  </ul>
+</div>
 </div>

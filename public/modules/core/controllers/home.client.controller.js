@@ -6,7 +6,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.currentService = 'yt';
 		$scope.p = Playlists.query();
 		$scope.playlists = $scope.p;
+		$log.info($scope.playlists);
 		$scope.volumeVal = 50;
+		$scope.fetchPlaylists = function() {
+			$scope.playlists = Playlists.query();
+		};
 		$scope.changeVolume = function () {
 			widget.setVolume($scope.volumeVal/100);
 			$scope.youtube.player.setVolume($scope.volumeVal);

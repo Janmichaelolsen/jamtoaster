@@ -14,7 +14,8 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
-				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				'public/lib/bootstrap/theme/superhero.min.css',
+				'public/lib/bootstrap/dist/css/custom.css',
 			],
 			js: [
 				'public/lib/angular/angular.js',

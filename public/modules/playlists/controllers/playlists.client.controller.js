@@ -14,7 +14,7 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 
 			// Redirect after save
 			playlist.$save(function(response) {
-				$location.path('playlists/' + response._id);
+				$location.path('/');
 
 				// Clear form fields
 				$scope.name = '';
