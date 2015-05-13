@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('core').service('VideosService', ['$window', '$rootScope', '$log', function ($window, $rootScope, $log) {
-
+    
+  var shuffle = false;
+  var playlist = [];
   var service = this;
   var s = document.createElement('script'); // use global document since Angular's $document is weak
   s.src = 'https://www.youtube.com/iframe_api';
@@ -13,15 +15,18 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     playerId: null,
     videoId: null,
     videoTitle: null,
-    playerHeight: '80',
-    playerWidth: '100',
+    playerHeight: '250',
+    playerWidth: '300',
     state: 'stopped'
   };
 
-  var history = [
-    {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
-  ];
-
+  this.launchList = function(list){
+    playlist = list;
+    this.launchPlayer(playlist[0], "Title");
+  };
+  this.nextSong = function(){
+    this.launchPlayer(playlist[Math.floor((Math.random() * playlist.length) + 0)], "Title");
+  }
   function onYoutubeReady (event) {
     $log.info('YouTube Player is ready');
     youtube.player.cueVideoById(history[0].id);
@@ -36,6 +41,7 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
       youtube.state = 'paused';
     } else if (event.data === YT.PlayerState.ENDED) {
       youtube.state = 'ended';
+      service.nextSong();
     }
     $rootScope.$apply();
   }

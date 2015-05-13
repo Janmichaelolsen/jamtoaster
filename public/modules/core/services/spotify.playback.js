@@ -1,5 +1,5 @@
 'use strict';
-(function() {
+/*(function() {
 
 	angular.module('core').factory('SpotifyService', function($rootScope, $interval, $http) {
 		var _playing = false;
@@ -24,7 +24,7 @@
 				// $rootScope.$emit('playerchanged');
 				disableTick();
 				$rootScope.$emit('endtrack');
-			}*/
+			}
 		}
 
 		var ticktimer = 0;
@@ -142,3 +142,4 @@
 	});
 
 })();
+*/

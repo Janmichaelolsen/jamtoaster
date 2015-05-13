@@ -1,18 +1,16 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'PlayerService', 'Playlists',
-	function($scope, Authentication, $http, $log, VideosService, PlayerService, Playlists) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists',
+	function($scope, Authentication, $http, $log, VideosService, Playlists) {
 		$scope.loading = false;
 		$scope.currentService = 'yt';
 		$scope.p = Playlists.query();
 		$scope.playlists = $scope.p;
-		$log.info($scope.playlists);
 		$scope.volumeVal = 50;
 		$scope.fetchPlaylists = function() {
 			$scope.playlists = Playlists.query();
 		};
 		$scope.changeVolume = function () {
-			widget.setVolume($scope.volumeVal/100);
 			$scope.youtube.player.setVolume($scope.volumeVal);
 		};
 		$scope.toggle = true;
@@ -39,10 +37,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    $scope.launch = function (id, title) {
 	    	$log.info('Launched id:' + id + ' and title:' + title);
 	      	VideosService.launchPlayer(id, title);
-
 	    };
+	    $scope.nextSong = function(){
+	    	VideosService.nextSong();
+	    }
 	    $scope.searchYT = function () {
-				$scope.loading = true;
+			$scope.loading = true;
 	    	$http.get('https://www.googleapis.com/youtube/v3/search', {
 	        params: {
 	          key: 'AIzaSyBi6y6Vu-y_tDrpT5YdNsFAHKlgKD_TGuM',
@@ -56,11 +56,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	      .success( function (data) {
 					$scope.loading = false;
 	        $scope.YTresults = data;
-	        $log.info(data);
 	      })
 	      .error( function () {
 					$scope.loading = false;
-	        $scope.errorText="An error occured, check your connection or try refreshing the page.";
+	        $scope.errorText='An error occured, check your connection or try refreshing the page.';
 	      });
 	    };
 			$scope.findRelated = function(videoId){
@@ -71,30 +70,28 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	          maxResults: '10',
 	          part: 'id,snippet',
 	          fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle',
-						relatedToVideoId: videoId
+			  relatedToVideoId: videoId
 	        }
 	      })
 	      .success( function (data) {
 					$scope.loading = false;
 	        $scope.relatedVids = data;
-	        $log.info($scope.relatedVids);
 	      })
 	      .error( function () {
 					$scope.loading = false;
-	        $scope.errorText="An error occured, check your connection or try refreshing the page.";
+	        $scope.errorText='An error occured, check your connection or try refreshing the page.';
 	      });
-			}
+			};
 	    $scope.addYTTrack = function (videoId, list) {
-	    	$log.info(videoId + " to "+list);
 				var songs = list.songs;
-				songs.push("yt|"+videoId);
+				songs.push(videoId);
 				var playlist = list;
 				playlist.songs = songs;
 				playlist.$update();
 
 		};
 	    //Soundcloud stuffs
-
+	    /*
         SC.initialize({
           client_id: '7ee4ea137d2c4782d07fc465eb841845'
         });
@@ -104,26 +101,25 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 		var newWidgetUrl = 'http://api.soundcloud.com/tracks/',
 		    CLIENT_ID    = '7ee4ea137d2c4782d07fc465eb841845';
-
+		*/
 		$scope.searchSC = function () {
 			$scope.loading = true;
 			SC.get('/tracks', { q: $scope.SCquery }, function(tracks) {
 				$scope.loading = false;
 			$scope.$apply(function () {
 	            $scope.SCresults = tracks.slice(0,10);
-							$log.info($scope.SCresults);
 	        });
 			});
 		};
 		$scope.addSCTrack = function (soundId, list) {
 			var songs = list.songs;
-			songs.push("sc|"+soundId);
+			songs.push(soundId);
 			var playlist = list;
 			playlist.songs = songs;
 			playlist.$update();
 		};
 		$scope.playSCTrack = function (soundId) {
-			widget.load('http://api.soundcloud.com/tracks/'+soundId, {
+			/*widget.load('http://api.soundcloud.com/tracks/'+soundId, {
 			  show_artwork: false,
 			  auto_play:true,
 			  show_comments:false,
@@ -133,7 +129,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			  show_playcount:false,
 			  show_user:false,
 			});
-		}
+			*/
+		};
 
 		//Hypem
 
@@ -143,14 +140,14 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			.success(function(tracks){
 				$scope.loading = false;
 				$scope.Hresults = tracks;
-				$log.info(tracks);
 			})
 			.error(function(){
 				$scope.loading = false;
-				$scope.errorText = "An error occured, check your connection or try refreshing the page.";
+				$scope.errorText = 'An error occured, check your connection or try refreshing the page.';
 			});
 		};
 		$scope.addHTrack = function (hypeId) {
+			/*
 			widget.load('http://api.soundcloud.com/tracks/'+hypeId, {
 			  show_artwork: false,
 			  auto_play:true,
@@ -161,7 +158,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			  show_playcount:false,
 			  show_user:false,
 			});
-			$log.info(hypeId);
+			*/
 		};
 
 		//Spotify
@@ -175,7 +172,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    	})
 				.error(function(){
 						$scope.loading = false;
-						$scope.errorText = "An error occured, check your connection or try refreshing the page.";
+						$scope.errorText = 'An error occured, check your connection or try refreshing the page.';
 				});
 	    };
 	    $scope.addSTrack = function (trackId) {
