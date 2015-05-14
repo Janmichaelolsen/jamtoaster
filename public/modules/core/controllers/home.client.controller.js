@@ -85,9 +85,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	        $scope.errorText='An error occured, check your connection or try refreshing the page.';
 	      });
 			};
-	    $scope.addYTTrack = function (videoId, list) {
+	    $scope.addYTTrack = function (videoId, thumb, title, list) {
 				var songs = list.songs;
-				songs.push(videoId);
+				songs.push({videoId, thumb, title});
 				var playlist = list;
 				playlist.songs = songs;
 				playlist.$update();

@@ -1,19 +1,35 @@
 <section data-ng-controller="PlaylistsController" data-ng-init="findOne()">
 	<div class="page-header">
 		<h1 data-ng-bind="playlist.name"></h1>
-		<button ng-click="launchList(playlist.songs);" class="list-group-item btn btn-success">Play</button>
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == playlist.user._id))">
-		<a class="btn btn-primary" href="/#!/playlists/{{playlist._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<h3>Songs:</h3>
+		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == playlist.user._id))">
+			<a class="btn btn-default" href="/#!/playlists/{{playlist._id}}/edit">
+				<i class="glyphicon glyphicon-edit"></i>
+			</a>
+			<a class="btn btn-default" data-ng-click="remove();">
+				<i class="glyphicon glyphicon-trash"></i>
+			</a>
+		</div>
+
+	<button ng-click="launchList(playlist.songs);" class="list-group-item btn btn-success">Shuffle Play</button>
 	<br>
-	<div ng-repeat="song in playlist.songs">
-		{{song}}  <button class="btn btn-danger" ng-click="removeSong(song);">Remove</button><br>
+	<div class="col-sm-12">
+	<h3>Songs:</h3>
+	<div class="table-responsive">
+		<table class="table">
+				<tr ng-repeat="song in playlist.songs">
+					<td>
+						<img src="{{song.thumb}}"></img>
+					</td>
+					<td>
+						{{song.title}}
+					</td>
+					<td>
+						<button ng-click="playSong(song)" class="btn btn-success">Play</button><br>
+						<button class="btn btn-danger" ng-click="removeSong(song);">Remove</button><br>
+					</td>
+				</tr>
+		</table>
 	</div>
+</div>
 </section>
