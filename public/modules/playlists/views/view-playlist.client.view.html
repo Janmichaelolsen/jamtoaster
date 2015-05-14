@@ -14,25 +14,22 @@
 
 	<button ng-click="launchList(playlist.songs);" class="list-group-item btn btn-success">Shuffle Play</button>
 	<br>
-	<div class="col-sm-12">
-	<div class="table-responsive">
-		<table class="table">
-				<tr ng-repeat="song in playlist.songs">
-					<td>
-						<img src="{{song.thumb}}"></img>
-					</td>
-					<td>
-						{{song.title}}
-					</td>
-					<td>
-						<button ng-click="playSong(song, playlist.songs)" class="btn btn-success">Play</button><br>
-						<button class="btn btn-danger" ng-click="removeSong(song);">Remove</button><br>
-					</td>
-				</tr>
-		</table>
+	<table class="table table-hover table-striped">
+		<tr ng-repeat="song in playlist.songs">
+			<td>
+				<img src="{{song.thumb}}"></img>
+			</td>
+			<td>
+				{{song.title}}
+			</td>
+			<td>
+				<button ng-click="playSong(song, playlist.songs)" class="btn btn-success">Play</button><br>
+				<button class="btn btn-danger" ng-click="removeSong(song);">Remove</button><br>
+			</td>
+		</tr>
+	</table>
 	</div>
 	<div class="alert alert-info text-center" data-ng-hide="playlist.songs.length">
 		This list has no songs, <a href="/">click here</a> to add some!
 	</div>
-</div>
 </section>

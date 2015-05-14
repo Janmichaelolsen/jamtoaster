@@ -16,7 +16,7 @@
 		</form>
       <div class="col-sm-6">
 			<div class="table-responsive" ng-hide="loading">
-				<table class="table">
+				<table class="table table-hover table-striped">
           <h3>Results</h3>
             <hr>
 			    	<tr ng-repeat="vid in YTresults.items">
@@ -47,7 +47,7 @@
     </div>
       <div class="col-sm-6">
       <div class="table-responsive" ng-hide="loadingrelated">
-        <table class="table">
+        <table class="table table-hover table-striped">
           <h3>Related Videos</h3>
           <hr>
             <tr ng-repeat="vid in relatedVids.items">
@@ -89,7 +89,7 @@
 		</form>
 		<div class="row">
 			<div class="table-responsive">
-				<table class="table">
+				<table class="table table-hover table-striped">
 			    	<tr ng-repeat="sound in SCresults">
 			    		<td>
 			    			<img src="{{sound.artwork_url}}"></img>
