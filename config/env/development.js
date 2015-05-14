@@ -1,14 +1,14 @@
 'use strict';
 
 module.exports = {
-	//db: 'mongodb://admin:h3e3l9i77@ds053798.mongolab.com:53798/heroku_app32923609',
-	db: 'localhost:27017',
+	db: 'mongodb://admin:h3e3l9i77@ds053798.mongolab.com:53798/heroku_app32923609',
+	//db: 'localhost:27017',
 	app: {
 		title: 'Jamtoaster'
 	},
 	facebook: {
-		clientID: process.env.FACEBOOK_ID || 'APP_ID',
-		clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
+		clientID: process.env.FACEBOOK_ID || '1049477245080991',
+		clientSecret: process.env.FACEBOOK_SECRET || 'ef6bfaa9e83fea5c495dfdf8b5551e55',
 		callbackURL: '/auth/facebook/callback'
 	},
 	twitter: {
