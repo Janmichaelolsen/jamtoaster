@@ -1,6 +1,7 @@
 <section data-ng-controller="PlaylistsController" data-ng-init="findOne()">
 	<div class="page-header">
-		<h1 data-ng-bind="playlist.name"></h1>
+		<h1>{{playlist.name}}</h1>
+		<h3>{{playlist.songs.length}} songs</h3>
 	</div>
 		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == playlist.user._id))">
 			<a class="btn btn-default" href="/#!/playlists/{{playlist._id}}/edit">
@@ -30,6 +31,9 @@
 					</td>
 				</tr>
 		</table>
+	</div>
+	<div class="alert alert-info text-center" data-ng-hide="playlist.songs.length">
+		This list has no songs, <a href="/">click here</a> to add some!
 	</div>
 </div>
 </section>
