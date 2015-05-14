@@ -24,6 +24,10 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     playlist = list;
     this.launchPlayer(playlist[Math.floor((Math.random() * playlist.length) + 0)].videoId, 'Title');
   };
+  this.launchListSpes = function(song, list){
+    playlist = list;
+    this.launchPlayer(song, 'Title');
+  };
   this.nextSong = function(){
     if(playlist.length == 1){
       this.launchPlayer(playlist[0].videoId, 'Title');
