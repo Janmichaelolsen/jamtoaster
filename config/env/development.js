@@ -9,7 +9,7 @@ module.exports = {
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || '1049477245080991',
 		clientSecret: process.env.FACEBOOK_SECRET || 'ef6bfaa9e83fea5c495dfdf8b5551e55',
-		callbackURL: '/auth/facebook/callback'
+		callbackURL: '/'
 	},
 	twitter: {
 		clientID: process.env.TWITTER_KEY || 'CONSUMER_KEY',
