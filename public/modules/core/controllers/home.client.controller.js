@@ -2,11 +2,13 @@
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists',
 	function($scope, Authentication, $http, $log, VideosService, Playlists) {
-		$scope.loading = false;
-		$scope.currentService = 'yt';
+		$scope.loading = true;
+		$scope.loadingrelated = true;
 		$scope.p = Playlists.query();
 		$scope.playlists = $scope.p;
 		$scope.volumeVal = 50;
+		$scope.YTresults =[];
+		$scope.relatedVids =[];
 		$scope.fetchPlaylists = function() {
 			$scope.playlists = Playlists.query();
 		};
@@ -40,7 +42,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	    };
 	    $scope.nextSong = function(){
 	    	VideosService.nextSong();
-	    }
+	    };
 	    $scope.searchYT = function () {
 			$scope.loading = true;
 	    	$http.get('https://www.googleapis.com/youtube/v3/search', {
@@ -63,6 +65,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	      });
 	    };
 			$scope.findRelated = function(videoId){
+				$scope.loadingrelated = true;
 				$http.get('https://www.googleapis.com/youtube/v3/search', {
 	        params: {
 	          key: 'AIzaSyBi6y6Vu-y_tDrpT5YdNsFAHKlgKD_TGuM',
@@ -74,11 +77,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	        }
 	      })
 	      .success( function (data) {
-					$scope.loading = false;
+					$scope.loadingrelated = false;
 	        $scope.relatedVids = data;
 	      })
 	      .error( function () {
-					$scope.loading = false;
+					$scope.loadingrelated = false;
 	        $scope.errorText='An error occured, check your connection or try refreshing the page.';
 	      });
 			};

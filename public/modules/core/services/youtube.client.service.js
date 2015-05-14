@@ -22,13 +22,13 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
 
   this.launchList = function(list){
     playlist = list;
-    this.launchPlayer(playlist[0], "Title");
+    this.launchPlayer(playlist[0], 'Title');
   };
   this.nextSong = function(){
     if(playlist.length == 1){
-      this.launchPlayer(playlist[0], "Title");
+      this.launchPlayer(playlist[0], 'Title');
     }else {
-      this.launchPlayer(playlist[Math.floor((Math.random() * playlist.length-1) + 0)], "Title");
+      this.launchPlayer(playlist[Math.floor((Math.random() * playlist.length-1) + 0)], 'Title');
     }
 
   }

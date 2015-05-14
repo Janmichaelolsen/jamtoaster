@@ -73,7 +73,8 @@ exports.delete = function(req, res) {
  * List of Playlists
  */
 exports.list = function(req, res) {
-	Playlist.find({'user': mongoose.Types.ObjectId(req.user._id)}).sort('-created').populate('user', 'displayName').exec(function(err, pets) {
+	if(req.user){
+		Playlist.find({'user': mongoose.Types.ObjectId(req.user._id)}).sort('-created').populate('user', 'displayName').exec(function(err, pets) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -82,6 +83,9 @@ exports.list = function(req, res) {
             res.jsonp(pets);
         }
     });
+	}else {
+		return res.json([]);
+	}
 };
 
 /**

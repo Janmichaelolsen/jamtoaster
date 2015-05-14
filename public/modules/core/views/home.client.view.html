@@ -5,7 +5,7 @@
 <tabset>
     <tab heading="YouTube" active="active" data-ng-controller="HomeController">
 		<form id="searchYT" data-ng-submit="searchYT()">
-			<div class="row">
+			<div class="row" style="margin-bottom:20px;">
 			    <div class="input-group">
 			      <input type="text" class="form-control" placeholder="Search for..." data-ng-model="YTquery" required="true" ng-change="searchYT()">
 			      	<span class="input-group-btn">
@@ -15,9 +15,10 @@
 			</div>
 		</form>
       <div class="col-sm-6">
-			<div class="table-responsive">
-				<table class="table" ng-hide="YTresults.length">
+			<div class="table-responsive" ng-hide="loading">
+				<table class="table">
           <h3>Results</h3>
+            <hr>
 			    	<tr ng-repeat="vid in YTresults.items">
 			    		<td>
 			    			<img src="{{vid.snippet.thumbnails.default.url}}"></img>
@@ -45,9 +46,10 @@
 			</div>
     </div>
       <div class="col-sm-6">
-      <div class="table-responsive">
+      <div class="table-responsive" ng-hide="loadingrelated">
         <table class="table">
           <h3>Related Videos</h3>
+          <hr>
             <tr ng-repeat="vid in relatedVids.items">
               <td>
                 <img src="{{vid.snippet.thumbnails.default.url}}"></img>
@@ -123,7 +125,7 @@
 			      	<span class="input-group-btn">
 			        	<button class="btn btn-default" type="submit">Go!</button>
 			      	</span>
-			    </div> 
+			    </div>
 			</div>
 		</form>
 		<div class="row">
