@@ -7,29 +7,29 @@ module.exports = {
 		title: 'Jamtoaster'
 	},
 	facebook: {
-		clientID: process.env.FACEBOOK_ID || '1049477245080991',
-		clientSecret: process.env.FACEBOOK_SECRET || 'ef6bfaa9e83fea5c495dfdf8b5551e55',
-		callbackURL: '/'
+		clientID: '1049477245080991',
+		clientSecret: 'ef6bfaa9e83fea5c495dfdf8b5551e55',
+		callbackURL: 'www.jamtoaster.com/auth/facebook/callback'
 	},
 	twitter: {
 		clientID: process.env.TWITTER_KEY || 'CONSUMER_KEY',
 		clientSecret: process.env.TWITTER_SECRET || 'CONSUMER_SECRET',
-		callbackURL: '/auth/twitter/callback'
+		callbackURL: 'www.jamtoaster.com/auth/twitter/callback'
 	},
 	google: {
 		clientID: process.env.GOOGLE_ID || 'APP_ID',
 		clientSecret: process.env.GOOGLE_SECRET || 'APP_SECRET',
-		callbackURL: '/auth/google/callback'
+		callbackURL: 'www.jamtoaster.com/auth/google/callback'
 	},
 	linkedin: {
 		clientID: process.env.LINKEDIN_ID || 'APP_ID',
 		clientSecret: process.env.LINKEDIN_SECRET || 'APP_SECRET',
-		callbackURL: '/auth/linkedin/callback'
+		callbackURL: 'www.jamtoaster.com/auth/linkedin/callback'
 	},
 	github: {
 		clientID: process.env.GITHUB_ID || 'APP_ID',
 		clientSecret: process.env.GITHUB_SECRET || 'APP_SECRET',
-		callbackURL: '/auth/github/callback'
+		callbackURL: 'www.jamtoaster.com/auth/github/callback'
 	},
 	mailer: {
 		from: process.env.MAILER_FROM || 'MAILER_FROM',
