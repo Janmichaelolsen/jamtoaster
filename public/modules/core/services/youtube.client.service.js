@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('core').service('VideosService', ['$window', '$rootScope', '$log', function ($window, $rootScope, $log) {
-    
+
   var shuffle = false;
   var playlist = ['NT5SSgY21zg'];
   var service = this;
   var s = document.createElement('script'); // use global document since Angular's $document is weak
-  s.src = 'https://www.youtube.com/iframe_api';
+  s.src = 'http://www.youtube.com/iframe_api';
   document.body.appendChild(s);
 
   var youtube = {
@@ -30,7 +30,7 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     }else {
       this.launchPlayer(playlist[Math.floor((Math.random() * playlist.length-1) + 0)], "Title");
     }
-    
+
   }
   function onYoutubeReady (event) {
     youtube.player.cueVideoById('NT5SSgY21zg');
