@@ -1,8 +1,8 @@
 'use strict';
 
 // Playlists controller
-angular.module('playlists').controller('PlaylistsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Playlists', 'VideosService',
-	function($scope, $stateParams, $location, Authentication, Playlists, VideosService) {
+angular.module('playlists').controller('PlaylistsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Playlists', 'VideosService', '$log',
+	function($scope, $stateParams, $location, Authentication, Playlists, VideosService, $log) {
 		$scope.authentication = Authentication;
 
 		// Create new Playlist
@@ -81,6 +81,9 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 		};
 		$scope.playSong = function(song, list){
 			VideosService.launchListSpes(song.videoId, list);
+		};
+		$scope.discover = function(list){
+			$log.info(list);
 		};
 	}
 ]);

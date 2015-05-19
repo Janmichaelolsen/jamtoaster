@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists',
-	function($scope, Authentication, $http, $log, VideosService, Playlists) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists', 'ngToast',
+	function($scope, Authentication, $http, $log, VideosService, Playlists, ngToast) {
 		$scope.loading = true;
 		$scope.loadingrelated = true;
 		$scope.p = Playlists.query();
@@ -86,12 +86,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	      });
 			};
 	    $scope.addYTTrack = function (videoId, thumb, title, list) {
-				var songs = list.songs;
-				songs.push({videoId, thumb, title});
-				var playlist = list;
-				playlist.songs = songs;
-				playlist.$update();
-
+			var songs = list.songs;
+			songs.push({videoId, thumb, title});
+			var playlist = list;
+			playlist.songs = songs;
+			playlist.$update();
+			ngToast.create('Added song to '+list.name);
 		};
 	    //Soundcloud stuffs
 	    /*
