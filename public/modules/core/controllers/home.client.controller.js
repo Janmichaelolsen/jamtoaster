@@ -91,7 +91,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			var playlist = list;
 			playlist.songs = songs;
 			playlist.$update();
-			ngToast.create('Added song to '+list.name);
+			ngToast.create('Added to '+list.name);
 		};
 	    //Soundcloud stuffs
 	    /*
