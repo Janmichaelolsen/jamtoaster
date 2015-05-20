@@ -80,7 +80,7 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 			VideosService.launchList(list);
 		};
 		$scope.playSong = function(song, list){
-			VideosService.launchListSpes(song.videoId, list);
+			VideosService.launchListSpes(song, list);
 		};
 		$scope.discover = function(list){
 			$log.info(list);

@@ -8,6 +8,7 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   var s = document.createElement('script'); // use global document since Angular's $document is weak
   s.src = 'http://www.youtube.com/iframe_api';
   document.body.appendChild(s);
+  var controlState = 'Play';
 
   var youtube = {
     ready: false,
@@ -22,31 +23,35 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
 
   this.launchList = function(list){
     playlist = list;
-    this.launchPlayer(playlist[Math.floor((Math.random() * playlist.length) + 0)].videoId, 'Title');
+    var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
+    this.launchPlayer(video.videoId, video.title);
   };
   this.launchListSpes = function(song, list){
     playlist = list;
-    this.launchPlayer(song, 'Title');
+    this.launchPlayer(song.videoId, song.title);
   };
   this.nextSong = function(){
     if(playlist.length == 1){
-      this.launchPlayer(playlist[0].videoId, 'Title');
+      this.launchPlayer(playlist[0].videoId, playlist[0].title);
     }else {
-      this.launchPlayer(playlist[Math.floor((Math.random() * playlist.length) + 0)].videoId, 'Title');
+      var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
+      this.launchPlayer(video.videoId, video.title);
     }
 
   }
   function onYoutubeReady (event) {
     youtube.player.cueVideoById('NT5SSgY21zg');
     youtube.videoId = 'NT5SSgY21zg';
-    youtube.videoTitle = 'Awesome song!';
+    youtube.videoTitle = 'Misterwives - Reflections (Gryffin Remix)';
   }
 
   function onYoutubeStateChange (event) {
     if (event.data === YT.PlayerState.PLAYING) {
       youtube.state = 'playing';
+      controlState = 'Pause';
     } else if (event.data === YT.PlayerState.PAUSED) {
       youtube.state = 'paused';
+      controlState = 'Play';
     } else if (event.data === YT.PlayerState.ENDED) {
       youtube.state = 'ended';
       service.nextSong();
@@ -115,5 +120,4 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   service.bindPlayer('placeholder');
   service.loadPlayer();
   $rootScope.$apply();
-  $log.info(youtube);
 }]);

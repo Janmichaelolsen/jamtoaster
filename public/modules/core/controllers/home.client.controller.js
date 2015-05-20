@@ -15,15 +15,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.changeVolume = function () {
 			$scope.youtube.player.setVolume($scope.volumeVal);
 		};
-		$scope.toggle = true;
-		$scope.toggleText = 'Play';
 		$scope.togglePlay = function () {
-			$scope.toggle = !$scope.toggle;
-			$scope.toggleText = $scope.toggle ? 'Play' : 'Pause';
-			if($scope.toggle === true){
-				$scope.youtube.player.pauseVideo();
-			}else {
+			if($scope.youtube.state === 'stopped' || $scope.youtube.state === 'paused'){
 				$scope.youtube.player.playVideo();
+			}else if($scope.youtube.state === 'playing') {
+				$scope.youtube.player.pauseVideo();
 			}
 		};
 		//Youtube stuffs
@@ -73,7 +69,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	          maxResults: '10',
 	          part: 'id,snippet',
 	          fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle',
-			  relatedToVideoId: videoId
+			  		relatedToVideoId: videoId
 	        }
 	      })
 	      .success( function (data) {
@@ -86,13 +82,21 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	      });
 			};
 	    $scope.addYTTrack = function (videoId, thumb, title, list) {
-			var songs = list.songs;
-			songs.push({videoId, thumb, title});
-			var playlist = list;
-			playlist.songs = songs;
-			playlist.$update();
-			ngToast.create('Added to '+list.name);
+				var songs = list.songs;
+				songs.push({videoId, thumb, title});
+				var playlist = list;
+				playlist.songs = songs;
+				playlist.$update();
+				ngToast.create('Added to '+list.name);
 		};
+		$scope.$watch(function() { return $scope.youtube.state; }, function(){
+			if($scope.youtube.state === 'paused' || $scope.youtube.state === 'stopped'){
+				$scope.toggleState = 'Play';
+			}else if($scope.youtube.state === 'playing'){
+				$scope.toggleState = 'Pause';
+			}
+		});
+		$scope.toggleState = 'Play';
 	    //Soundcloud stuffs
 	    /*
         SC.initialize({
