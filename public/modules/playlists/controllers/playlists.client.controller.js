@@ -85,7 +85,6 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 		$scope.discover = function(list){
 			$scope.getDiscSongs(list)
 			.then(function (res){
-				$log.info("Launching list with "+res.length+" songs");
 				VideosService.launchDiscover(res);
 			});
 		};
@@ -96,8 +95,6 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 		  var deferred = $q.defer();
 		  // Set up a result array
 		  var results = [];
-
-		  makeNextRequest();
 		  function makeNextRequest() {
 
 				$http.get('https://www.googleapis.com/youtube/v3/search', {
@@ -126,8 +123,9 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 				.error( function () {
 				});
 		  }
+		  makeNextRequest();
 		  // return a promise for the completed requests
 		  return deferred.promise;
-		}
+		};
 	}
 ]);

@@ -42,18 +42,18 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   };
   this.nextSong = function(){
     if(discover === false){
-      if(playlist.length == 1){
+      if(playlist.length === 1){
         this.launchPlayer(playlist[0].videoId, playlist[0].title);
       }else {
         var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
         this.launchPlayer(video.videoId, video.title);
       }
     }else{
-      if(playlist.length == 1){
+      if(playlist.length === 1){
         this.launchPlayer(playlist[0].id.videoId, playlist[0].snippet.title);
       }else {
-        var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
-        this.launchPlayer(video.id.videoId, video.snippet.title);
+        var disc = playlist[Math.floor((Math.random() * playlist.length) + 0)];
+        this.launchPlayer(disc.id.videoId, disc.snippet.title);
       }
     }
   }

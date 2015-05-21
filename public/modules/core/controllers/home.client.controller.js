@@ -110,6 +110,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		    CLIENT_ID    = '7ee4ea137d2c4782d07fc465eb841845';
 		*/
 		$scope.searchSC = function () {
+			/*
 			$scope.loading = true;
 			SC.get('/tracks', { q: $scope.SCquery }, function(tracks) {
 				$scope.loading = false;
@@ -117,7 +118,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	            $scope.SCresults = tracks.slice(0,10);
 	        });
 			});
+*/
 		};
+
 		$scope.addSCTrack = function (soundId, list) {
 			var songs = list.songs;
 			songs.push(soundId);
