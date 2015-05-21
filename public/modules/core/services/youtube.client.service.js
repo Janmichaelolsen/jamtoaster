@@ -6,6 +6,7 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   var playlist = ['NT5SSgY21zg'];
   var service = this;
   var s = document.createElement('script'); // use global document since Angular's $document is weak
+  var discover = false;
   s.src = 'http://www.youtube.com/iframe_api';
   document.body.appendChild(s);
   var controlState = 'Play';
@@ -22,22 +23,39 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   };
 
   this.launchList = function(list){
+    discover = false;
     playlist = list;
     var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
     this.launchPlayer(video.videoId, video.title);
   };
+  this.launchDiscover = function(list){
+    discover = true;
+    $log.info(list);
+    playlist = list;
+    var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
+    this.launchPlayer(video.id.videoId, video.snippet.title);
+  };
   this.launchListSpes = function(song, list){
+    discover = false;
     playlist = list;
     this.launchPlayer(song.videoId, song.title);
   };
   this.nextSong = function(){
-    if(playlist.length == 1){
-      this.launchPlayer(playlist[0].videoId, playlist[0].title);
-    }else {
-      var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
-      this.launchPlayer(video.videoId, video.title);
+    if(discover === false){
+      if(playlist.length == 1){
+        this.launchPlayer(playlist[0].videoId, playlist[0].title);
+      }else {
+        var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
+        this.launchPlayer(video.videoId, video.title);
+      }
+    }else{
+      if(playlist.length == 1){
+        this.launchPlayer(playlist[0].id.videoId, playlist[0].snippet.title);
+      }else {
+        var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
+        this.launchPlayer(video.id.videoId, video.snippet.title);
+      }
     }
-
   }
   function onYoutubeReady (event) {
     youtube.player.cueVideoById('NT5SSgY21zg');

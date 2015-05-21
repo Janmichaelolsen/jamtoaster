@@ -1,8 +1,8 @@
 'use strict';
 
 // Playlists controller
-angular.module('playlists').controller('PlaylistsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Playlists', 'VideosService', '$log',
-	function($scope, $stateParams, $location, Authentication, Playlists, VideosService, $log) {
+angular.module('playlists').controller('PlaylistsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Playlists', 'VideosService', '$log', '$http', '$q',
+	function($scope, $stateParams, $location, Authentication, Playlists, VideosService, $log, $http, $q) {
 		$scope.authentication = Authentication;
 
 		// Create new Playlist
@@ -83,7 +83,51 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 			VideosService.launchListSpes(song, list);
 		};
 		$scope.discover = function(list){
-			$log.info(list);
+			$scope.getDiscSongs(list)
+			.then(function (res){
+				$log.info("Launching list with "+res.length+" songs");
+				VideosService.launchDiscover(res);
+			});
 		};
+		$scope.getDiscSongs = function(array){
+			// Mark which request we're currently doing
+		  var currentRequest = 0;
+		  // Make this promise based.
+		  var deferred = $q.defer();
+		  // Set up a result array
+		  var results = [];
+
+		  makeNextRequest();
+		  function makeNextRequest() {
+
+				$http.get('https://www.googleapis.com/youtube/v3/search', {
+					params: {
+						key: 'AIzaSyBi6y6Vu-y_tDrpT5YdNsFAHKlgKD_TGuM',
+						type: 'video',
+						maxResults: '3',
+						part: 'id,snippet',
+						fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle',
+						relatedToVideoId: array[currentRequest].videoId
+					}
+				})
+				.success( function (data) {
+					results.push(data.items[0]);
+					results.push(data.items[1]);
+					results.push(data.items[2]);
+					currentRequest++;
+					if (currentRequest < array.length){
+		        makeNextRequest();
+		      }
+		      // Resolve the promise otherwise.
+		      else {
+		        deferred.resolve(results);
+		      }
+				})
+				.error( function () {
+				});
+		  }
+		  // return a promise for the completed requests
+		  return deferred.promise;
+		}
 	}
 ]);
