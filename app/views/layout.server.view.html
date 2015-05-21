@@ -51,8 +51,7 @@
 		<section class="container" style="background-color:rgba(0,0,0,0.4)!important;">
 			{% block content %}{% endblock %}
 		</section>
-		<section data-ng-include="'/modules/core/views/player.html'" style="position:fixed; bottom:120px; top:auto;"></section>
-		<section ng-controller="HomeController">
+		<section ng-controller="HomeController" style="position:fixed; bottom:120px; top:auto;">
 			<div id="player">
 			  <div id="placeholder"></div>
 			</div>
