@@ -3,10 +3,10 @@
 		<h1>{{playlist.name}}</h1>
 		<h3>{{playlist.songs.length}} songs</h3>
 	</div>
-		<div margin-bottom="10px;">
-			<button ng-click="launchList(playlist.songs);" class="list-group-item btn btn-success pull-left">Shuffle Play</button>
-			<button ng-click="discover(playlist.songs);" class="list-group-item btn btn-warning pull-left">Discover</button>
-		</div>
+	<div style="display:block;">
+		<button ng-click="launchList(playlist.songs);" class="list-group-item btn btn-success pull-left">Shuffle Play</button>
+		<button ng-click="discover(playlist.songs);" class="list-group-item btn btn-warning pull-left">Discover</button>
+	</div>
 		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == playlist.user._id))">
 			<a class="btn btn-default" href="/#!/playlists/{{playlist._id}}/edit">
 				<i class="glyphicon glyphicon-edit"></i>
