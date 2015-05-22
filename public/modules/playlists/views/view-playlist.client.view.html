@@ -6,6 +6,7 @@
 	<div style="display:block;">
 		<button ng-click="launchList(playlist.songs);" class="list-group-item btn btn-success pull-left">Shuffle Play</button>
 		<button ng-click="discover(playlist.songs);" class="list-group-item btn btn-warning pull-left">Discover</button>
+		<button ng-click="launchList(playlist.songs);" class="list-group-item btn btn-info pull-left">Make Public</button>
 	</div>
 		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == playlist.user._id))">
 			<a class="btn btn-default" href="/#!/playlists/{{playlist._id}}/edit">
@@ -21,7 +22,8 @@
 				<img src="{{song.thumb}}"></img>
 			</td>
 			<td>
-				{{song.title}}
+				<div style="color:#66FF66;" ng-show="song.videoId === youtube.videoId">{{song.title}}</div>
+				<div ng-hide="song.videoId === youtube.videoId">{{song.title}}</div>
 			</td>
 			<td>
 				<button ng-click="playSong(song, playlist.songs)" class="btn btn-success">Play</button><br>

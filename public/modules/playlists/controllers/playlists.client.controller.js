@@ -4,6 +4,8 @@
 angular.module('playlists').controller('PlaylistsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Playlists', 'VideosService', '$log', '$http', '$q',
 	function($scope, $stateParams, $location, Authentication, Playlists, VideosService, $log, $http, $q) {
 		$scope.authentication = Authentication;
+		$scope.youtube = VideosService.getYoutube();
+		$log.info($scope.youtube);
 
 		// Create new Playlist
 		$scope.create = function() {
