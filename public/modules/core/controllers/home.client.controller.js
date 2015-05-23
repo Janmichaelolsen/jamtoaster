@@ -32,9 +32,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	      $scope.playlist = true;
 	    }
 	    init();
-	    $scope.launch = function (id, title) {
-	    	$log.info('Launched id:' + id + ' and title:' + title);
-	      	VideosService.launchPlayer(id, title);
+	    $scope.launch = function (id, title, thumb) {
+	      	VideosService.launchPlayer(id, title, thumb);
 	    };
 	    $scope.nextSong = function(){
 	    	VideosService.nextSong();
@@ -80,6 +79,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 					$scope.loadingrelated = false;
 	        $scope.errorText='An error occured, check your connection or try refreshing the page.';
 	      });
+			};
+			$scope.addTrackFromMenu = function(list) {
+				$log.info($scope.youtube);
+				$scope.addYTTrack($scope.youtube.videoId, $scope.youtube.thumb, $scope.youtube.videoTitle, list);
+
 			};
 	    $scope.addYTTrack = function (videoId, thumb, title, list) {
 				var songs = list.songs;

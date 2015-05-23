@@ -19,26 +19,26 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     videoTitle: null,
     playerHeight: '250',
     playerWidth: '300',
-    state: 'stopped'
+    state: 'stopped',
+    thumb: ''
   };
 
   this.launchList = function(list){
     discover = false;
     playlist = list;
     var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
-    this.launchPlayer(video.videoId, video.title);
+    this.launchPlayer(video.videoId, video.title, video.thumb);
   };
   this.launchDiscover = function(list){
     discover = true;
-    $log.info(list);
     playlist = list;
     var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
-    this.launchPlayer(video.id.videoId, video.snippet.title);
+    this.launchPlayer(video.id.videoId, video.snippet.title, video.snippet.thumbnails.default.url);
   };
   this.launchListSpes = function(song, list){
     discover = false;
     playlist = list;
-    this.launchPlayer(song.videoId, song.title);
+    this.launchPlayer(song.videoId, song.title, song.thumb);
   };
   this.nextSong = function(){
     if(discover === false){
@@ -46,14 +46,14 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
         this.launchPlayer(playlist[0].videoId, playlist[0].title);
       }else {
         var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
-        this.launchPlayer(video.videoId, video.title);
+        this.launchPlayer(video.videoId, video.title, video.thumb);
       }
     }else{
       if(playlist.length === 1){
         this.launchPlayer(playlist[0].id.videoId, playlist[0].snippet.title);
       }else {
         var disc = playlist[Math.floor((Math.random() * playlist.length) + 0)];
-        this.launchPlayer(disc.id.videoId, disc.snippet.title);
+        this.launchPlayer(disc.id.videoId, disc.snippet.title, disc.snippet.thumbnails.default.url);
       }
     }
   }
@@ -61,6 +61,7 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     youtube.player.cueVideoById('NT5SSgY21zg');
     youtube.videoId = 'NT5SSgY21zg';
     youtube.videoTitle = 'Misterwives - Reflections (Gryffin Remix)';
+    youtube.thumb = 'yo';
   }
 
   function onYoutubeStateChange (event) {
@@ -107,10 +108,11 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     }
   };
 
-  this.launchPlayer = function (id, title) {
+  this.launchPlayer = function (id, title, thumb) {
     youtube.player.loadVideoById(id);
     youtube.videoId = id;
     youtube.videoTitle = title;
+    youtube.thumb = thumb;
     return youtube;
   };
 

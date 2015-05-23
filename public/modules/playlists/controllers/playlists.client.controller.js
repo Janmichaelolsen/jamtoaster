@@ -1,8 +1,8 @@
 'use strict';
 
 // Playlists controller
-angular.module('playlists').controller('PlaylistsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Playlists', 'VideosService', '$log', '$http', '$q',
-	function($scope, $stateParams, $location, Authentication, Playlists, VideosService, $log, $http, $q) {
+angular.module('playlists').controller('PlaylistsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Playlists', 'VideosService', '$log', '$http', '$q', 'ngToast',
+	function($scope, $stateParams, $location, Authentication, Playlists, VideosService, $log, $http, $q, ngToast) {
 		$scope.authentication = Authentication;
 		$scope.youtube = VideosService.getYoutube();
 		$log.info($scope.youtube);
@@ -79,12 +79,14 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 			});
 		};
 		$scope.launchList = function(list){
+			ngToast.create('Shuffle playing '+$scope.playlist.name);
 			VideosService.launchList(list);
 		};
 		$scope.playSong = function(song, list){
 			VideosService.launchListSpes(song, list);
 		};
 		$scope.discover = function(list){
+			ngToast.create('Discovering '+$scope.playlist.name);
 			$scope.getDiscSongs(list)
 			.then(function (res){
 				VideosService.launchDiscover(res);

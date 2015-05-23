@@ -2,22 +2,21 @@
     <p>{{youtube.videoTitle}}</p>
     <button class="btn btn-default" ng-click="togglePlay()" style="float:left;">{{toggleState}}</button>
     <button class="btn btn-default" type="submit" ng-click="nextSong();" style="float:left;" data-ng-show="authentication.user">Next Song</button>
-    <input type="range" ng-model="volumeVal" ng-change="changeVolume();" style="width:100px; float:left;"/>
+    <div class="dropdown" data-ng-show="authentication.user" style=" float:left;">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-expanded="true">
+      Add to..
+      <span class="caret"></span>
+    </button>
+
+    <ul class="dropdown-menu dd" role="menu" aria-labelledby="dropdownMenu2" data-ng-show="authentication.user">
+    	<li role="presentation"><a role="menuitem" tabindex="-1" href="/#!/playlists/create">+ New Playlist</a></li>
+    	<div class="dd" ng-repeat="list in playlists">
+      	<li role="presentation"><a role="menuitem" tabindex="-1" ng-click="addTrackFromMenu(list);">{{list.name}}</a></li>
+  	</div>
+    </ul>
+  </div>
     <section id="scplayer" style="display:none">
 		<iframe id="sc-widget" width="100" height="80" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=false"></iframe>
   </section>
-  <!--
-  <div class="dropdown pull-right" data-ng-show="authentication.user">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-expanded="true">
-    Playlists
-    <span class="caret"></span>
-  </button>
-
-  <ul class="dropdown-menu dd" role="menu" aria-labelledby="dropdownMenu2" data-ng-show="authentication.user">
-  	<li role="presentation"><a role="menuitem" tabindex="-1" href="/#!/playlists/create">+ New Playlist</a></li>
-  	<div class="dd" ng-repeat="list in playlists">
-    	<li role="presentation"><a role="menuitem" tabindex="-1" href="/#!/playlists/{{list._id}}">{{list.name}}</a></li>
-	</div>
-  </ul>-->
-</div>
+<input type="range" ng-model="volumeVal" ng-change="changeVolume();" style="width:100px; float:left;"/>
 </div>
