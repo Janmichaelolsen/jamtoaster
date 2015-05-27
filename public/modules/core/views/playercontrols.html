@@ -2,7 +2,7 @@
     <p>{{youtube.videoTitle}}</p>
     <button class="btn btn-default" ng-click="togglePlay()" style="float:left;">{{toggleState}}</button>
     <button class="btn btn-default" type="submit" ng-click="nextSong();" style="float:left;" data-ng-show="authentication.user">Next Song</button>
-    <div class="dropdown" style=" float:left;" data-ng-init="initPlaylistsMenu()">  
+    <div class="dropdown" style=" float:left;" data-ng-init="initPlaylistsMenu()">
     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-expanded="true">
       Add to..
       <span class="caret"></span>
@@ -19,4 +19,9 @@
 		<iframe id="sc-widget" width="100" height="80" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=false"></iframe>
   </section>
 <input type="range" ng-model="volumeVal" ng-change="changeVolume();" style="width:100px; float:left;"/>
+<p ng-bind="time" style="float:left"></p>
+<p style="float:left">/</p>
+<p style="float:left">{{duration}}</p>
+<input style="float:left" type="text" placeholder="Seek to.." ng-model="setVal"></input>
+<button class="btn btn-default" ng-click="seekTo()">Seek</button>
 </div>

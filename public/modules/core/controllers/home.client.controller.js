@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists', 'ngToast', 'CommService', '$q',
-	function($scope, Authentication, $http, $log, VideosService, Playlists, ngToast, CommService, $q) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists', 'ngToast', 'CommService', '$q', '$interval',
+	function($scope, Authentication, $http, $log, VideosService, Playlists, ngToast, CommService, $q, $interval) {
 		$scope.loading = true;
 		$scope.loadingrelated = true;
 		$scope.p = Playlists.query();
@@ -9,6 +9,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.volumeVal = 50;
 		$scope.YTresults =[];
 		$scope.relatedVids =[];
+		$scope.duration = 0;
+		$scope.time = 0;
+		$scope.setVal = 0;
 		$scope.fetchPlaylists = function() {
 			$scope.playlists = Playlists.query();
 		};
@@ -37,7 +40,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	      	VideosService.launchPlayer(id, title, thumb);
 	    };
 	    $scope.nextSong = function(){
-	    	VideosService.nextSong();
+	    		VideosService.nextSong();
 	    };
 	    $scope.searchYT = function () {
 			$scope.loading = true;
@@ -97,6 +100,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			if($scope.youtube.state === 'paused' || $scope.youtube.state === 'stopped'){
 				$scope.toggleState = 'Play';
 			}else if($scope.youtube.state === 'playing'){
+				$interval(callAtInterval, 1000);
+				function callAtInterval() {
+						$scope.time = $scope.youtube.player.getCurrentTime();
+				}
 				$scope.toggleState = 'Pause';
 			}
 		});
@@ -109,12 +116,18 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 		  wait()
 		  .then(function(rest) {
-		    $scope.$apply();
+		    $scope.$digest();
 		  })
 		  .catch(function(fallback) {
 		  });
-			
+
 		});
+		$scope.$watch(function() { return $scope.youtube.player.getDuration(); }, function(){
+			$scope.duration = $scope.youtube.player.getDuration();
+		});
+		$scope.seekTo = function(){
+			$scope.youtube.player.seekTo($scope.setVal);
+		};
 		$scope.toggleState = 'Play';
 	    //Soundcloud stuffs
 	    /*
