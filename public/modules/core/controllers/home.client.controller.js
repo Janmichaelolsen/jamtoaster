@@ -1,11 +1,12 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists', 'ngToast',
-	function($scope, Authentication, $http, $log, VideosService, Playlists, ngToast) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists', 'ngToast', 'CommService', '$q',
+	function($scope, Authentication, $http, $log, VideosService, Playlists, ngToast, CommService, $q) {
 		$scope.loading = true;
 		$scope.loadingrelated = true;
 		$scope.p = Playlists.query();
 		$scope.playlists = $scope.p;
+		$log.info($scope.playlists);
 		$scope.volumeVal = 50;
 		$scope.YTresults =[];
 		$scope.relatedVids =[];
@@ -30,6 +31,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		function init() {
 	      $scope.youtube = VideosService.getYoutube();
 	      $scope.playlist = true;
+	      $scope.loggedIn = CommService.getLoggedIn();
 	    }
 	    init();
 	    $scope.launch = function (id, title, thumb) {
@@ -81,7 +83,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	      });
 			};
 			$scope.addTrackFromMenu = function(list) {
-				$log.info($scope.youtube);
 				$scope.addYTTrack($scope.youtube.videoId, $scope.youtube.thumb, $scope.youtube.videoTitle, list);
 
 			};
@@ -99,6 +100,22 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			}else if($scope.youtube.state === 'playing'){
 				$scope.toggleState = 'Pause';
 			}
+		});
+		$scope.$watch(function() { return $scope.loggedIn; }, function(){
+			var wait = function() {
+		    var deferred = $q.defer();
+		    $scope.playlists = Playlists.query();
+		    return deferred.promise;
+		  };
+
+		  wait()
+		  .then(function(rest) {
+		  	$log.info($scope.playlists);
+		    $scope.$apply();
+		  })
+		  .catch(function(fallback) {
+		  });
+			
 		});
 		$scope.toggleState = 'Play';
 	    //Soundcloud stuffs
@@ -193,5 +210,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 				$log.info(trackId);
 			};
 	    $scope.authentication = Authentication;
+	    $scope.$apply();
 	}
 ]);

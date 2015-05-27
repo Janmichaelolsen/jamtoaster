@@ -2,17 +2,17 @@
     <p>{{youtube.videoTitle}}</p>
     <button class="btn btn-default" ng-click="togglePlay()" style="float:left;">{{toggleState}}</button>
     <button class="btn btn-default" type="submit" ng-click="nextSong();" style="float:left;" data-ng-show="authentication.user">Next Song</button>
-    <div class="dropdown" data-ng-show="authentication.user" style=" float:left;">
+    <div class="dropdown" style=" float:left;" data-ng-init="initPlaylistsMenu()">  
     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-expanded="true">
       Add to..
       <span class="caret"></span>
     </button>
 
-    <ul class="dropdown-menu dd" role="menu" aria-labelledby="dropdownMenu2" data-ng-show="authentication.user">
-    	<li role="presentation"><a role="menuitem" tabindex="-1" href="/#!/playlists/create">+ New Playlist</a></li>
-    	<div class="dd" ng-repeat="list in playlists">
-      	<li role="presentation"><a role="menuitem" tabindex="-1" ng-click="addTrackFromMenu(list);">{{list.name}}</a></li>
-  	</div>
+    <ul class="dropdown-menu dd" role="menu" aria-labelledby="dropdownMenu2">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="/#!/playlists/create">+ New Playlist</a></li>
+      <div class="dd" ng-repeat="list in playlists">
+        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="addTrackFromMenu(list);">{{list.name}}</a></li>
+    </div>
     </ul>
   </div>
     <section id="scplayer" style="display:none">

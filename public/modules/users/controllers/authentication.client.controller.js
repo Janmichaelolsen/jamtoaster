@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
-	function($scope, $http, $location, Authentication) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication', 'CommService',
+	function($scope, $http, $location, Authentication, CommService) {
 		$scope.authentication = Authentication;
 
 		// If user is signed in then redirect back home
@@ -25,6 +25,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user = response;
 				// And redirect to the index pag
 				$location.path('/');
+				CommService.setLoggedIn();
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
