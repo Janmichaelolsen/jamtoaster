@@ -9,9 +9,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.volumeVal = 50;
 		$scope.YTresults =[];
 		$scope.relatedVids =[];
-		$scope.duration = 0;
 		$scope.time = 0;
-		$scope.setVal = 0;
+		$scope.setVal = $scope.time;
 		$scope.fetchPlaylists = function() {
 			$scope.playlists = Playlists.query();
 		};
@@ -100,9 +99,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			if($scope.youtube.state === 'paused' || $scope.youtube.state === 'stopped'){
 				$scope.toggleState = 'Play';
 			}else if($scope.youtube.state === 'playing'){
-				$interval(callAtInterval, 1000);
+				$interval(callAtInterval, 200);
 				function callAtInterval() {
 						$scope.time = $scope.youtube.player.getCurrentTime();
+						$scope.setVal = $scope.time;
 				}
 				$scope.toggleState = 'Pause';
 			}

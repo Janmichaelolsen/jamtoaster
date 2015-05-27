@@ -1,5 +1,7 @@
-- Discover
-- Youtube bug
+- Play controls
 - Design
-- Soundcloud
+
 - Collaborative playlist
+- profile
+- my jam
+- Soundcloud?
