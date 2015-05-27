@@ -6,7 +6,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.loadingrelated = true;
 		$scope.p = Playlists.query();
 		$scope.playlists = $scope.p;
-		$log.info($scope.playlists);
 		$scope.volumeVal = 50;
 		$scope.YTresults =[];
 		$scope.relatedVids =[];
@@ -110,7 +109,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 		  wait()
 		  .then(function(rest) {
-		  	$log.info($scope.playlists);
 		    $scope.$apply();
 		  })
 		  .catch(function(fallback) {
