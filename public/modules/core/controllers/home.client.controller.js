@@ -10,6 +10,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.YTresults =[];
 		$scope.relatedVids =[];
 		$scope.time = 0;
+		$scope.displayTime = '00:00';
 		$scope.setVal = $scope.time;
 		$scope.fetchPlaylists = function() {
 			$scope.playlists = Playlists.query();
@@ -62,31 +63,31 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	        $scope.errorText='An error occured, check your connection or try refreshing the page.';
 	      });
 	    };
-			$scope.findRelated = function(videoId){
-				$scope.loadingrelated = true;
-				$http.get('https://www.googleapis.com/youtube/v3/search', {
-	        params: {
-	          key: 'AIzaSyBi6y6Vu-y_tDrpT5YdNsFAHKlgKD_TGuM',
-	          type: 'video',
-	          maxResults: '10',
-	          part: 'id,snippet',
-	          fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle',
-			  		relatedToVideoId: videoId
-	        }
-	      })
-	      .success( function (data) {
-					$scope.loadingrelated = false;
-	        $scope.relatedVids = data;
-	      })
-	      .error( function () {
-					$scope.loadingrelated = false;
-	        $scope.errorText='An error occured, check your connection or try refreshing the page.';
-	      });
-			};
-			$scope.addTrackFromMenu = function(list) {
-				$scope.addYTTrack($scope.youtube.videoId, $scope.youtube.thumb, $scope.youtube.videoTitle, list);
+		$scope.findRelated = function(videoId){
+			$scope.loadingrelated = true;
+			$http.get('https://www.googleapis.com/youtube/v3/search', {
+		        params: {
+		          key: 'AIzaSyBi6y6Vu-y_tDrpT5YdNsFAHKlgKD_TGuM',
+		          type: 'video',
+		          maxResults: '10',
+		          part: 'id,snippet',
+		          fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle',
+				  		relatedToVideoId: videoId
+		        }
+		      })
+		      .success( function (data) {
+						$scope.loadingrelated = false;
+		        $scope.relatedVids = data;
+		      })
+		      .error( function () {
+						$scope.loadingrelated = false;
+		        $scope.errorText='An error occured, check your connection or try refreshing the page.';
+      		});
+		};
+		$scope.addTrackFromMenu = function(list) {
+			$scope.addYTTrack($scope.youtube.videoId, $scope.youtube.thumb, $scope.youtube.videoTitle, list);
 
-			};
+		};
 	    $scope.addYTTrack = function (videoId, thumb, title, list) {
 				var songs = list.songs;
 				songs.push({videoId, thumb, title});
@@ -101,8 +102,19 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			}else if($scope.youtube.state === 'playing'){
 				$interval(callAtInterval, 200);
 				function callAtInterval() {
-						$scope.time = $scope.youtube.player.getCurrentTime();
-						$scope.setVal = $scope.time;
+					var totalSec = Math.floor($scope.youtube.player.getCurrentTime());
+					var hours = parseInt( totalSec / 3600 ) % 24;
+					var minutes = parseInt( totalSec / 60 ) % 60;
+					var seconds = totalSec % 60;
+					var result = 0;
+					if(hours == 0){
+						result = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+					}else{
+						result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+					}
+					$scope.displayTime = result;
+					$scope.time = $scope.youtube.player.getCurrentTime();
+					$scope.setVal = $scope.time;
 				}
 				$scope.toggleState = 'Pause';
 			}
@@ -123,7 +135,20 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 		});
 		$scope.$watch(function() { return $scope.youtube.player.getDuration(); }, function(){
+			var totalSec = Math.floor($scope.youtube.player.getDuration());
+			var hours = parseInt( totalSec / 3600 ) % 24;
+			var minutes = parseInt( totalSec / 60 ) % 60;
+			var seconds = totalSec % 60
+			var result = 0;
+			if(hours == 0){
+				result = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+			}else{
+				result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+			}
 			$scope.duration = $scope.youtube.player.getDuration();
+			$scope.displayDuration = result;
+			var seekBar = document.getElementById("seekBar");
+			seekBar.max=$scope.youtube.player.getDuration();
 		});
 		$scope.seekTo = function(){
 			$scope.youtube.player.seekTo($scope.setVal);
