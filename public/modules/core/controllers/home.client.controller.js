@@ -104,10 +104,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 				function callAtInterval() {
 					var totalSec = Math.floor($scope.youtube.player.getCurrentTime());
 					var hours = parseInt( totalSec / 3600 ) % 24;
+					var durSecs = Math.floor($scope.youtube.player.getDuration());
+					var durHourse = parseInt( durSecs / 3600 ) % 24;
 					var minutes = parseInt( totalSec / 60 ) % 60;
 					var seconds = totalSec % 60;
 					var result = 0;
-					if(hours == 0){
+					if(durHourse == 0){
 						result = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 					}else{
 						result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
@@ -167,7 +169,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		    CLIENT_ID    = '7ee4ea137d2c4782d07fc465eb841845';
 		*/
 		$scope.searchSC = function () {
-			/*
 			$scope.loading = true;
 			SC.get('/tracks', { q: $scope.SCquery }, function(tracks) {
 				$scope.loading = false;
@@ -175,7 +176,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	            $scope.SCresults = tracks.slice(0,10);
 	        });
 			});
-*/
 		};
 
 		$scope.addSCTrack = function (soundId, list) {
