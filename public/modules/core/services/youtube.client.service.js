@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('core').service('VideosService', ['$window', '$rootScope', '$log', function ($window, $rootScope, $log) {
+angular.module('core').service('VideosService', ['$window', '$rootScope', '$log', 'Playlists', function ($window, $rootScope, $log, Playlists) {
 
   var shuffle = false;
   var playlist = ['NT5SSgY21zg'];
@@ -10,6 +10,7 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   s.src = 'http://www.youtube.com/iframe_api';
   document.body.appendChild(s);
   var controlState = 'Play';
+  var playlists = Playlists.query();
 
   var youtube = {
     ready: false,
@@ -135,6 +136,13 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
 
   this.getYoutube = function () {
     return youtube;
+  };
+
+  this.getPlaylists = function() {
+    return playlists;
+  }
+  this.updatePlaylists = function(list){
+    playlists = Playlists.query();
   };
   youtube.ready = true;
   service.bindPlayer('placeholder');

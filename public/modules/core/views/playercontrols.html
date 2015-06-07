@@ -2,7 +2,7 @@
     <p>{{youtube.videoTitle}}</p>
     <button class="btn btn-default" ng-click="togglePlay()" style="float:left;">{{toggleState}}</button>
     <button class="btn btn-default" type="submit" ng-click="nextSong();" style="float:left;" data-ng-show="authentication.user">Next Song</button>
-    <div class="dropdown" style=" float:left;" data-ng-init="initPlaylistsMenu()">
+    <div class="dropdown" style=" float:left;" data-ng-init="initPlaylistsMenu()" data-ng-show="authentication.user">
     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-expanded="true">
       Add to..
       <span class="caret"></span>

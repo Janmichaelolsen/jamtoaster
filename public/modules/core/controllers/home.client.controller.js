@@ -1,20 +1,15 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists', 'ngToast', 'CommService', '$q', '$interval',
-	function($scope, Authentication, $http, $log, VideosService, Playlists, ngToast, CommService, $q, $interval) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists', 'ngToast', '$q', '$interval', '$timeout',
+	function($scope, Authentication, $http, $log, VideosService, Playlists, ngToast, $q, $interval, $timeout) {
 		$scope.authentication = Authentication;
 		$scope.loading = true;
-		$scope.p = Playlists.query();
-		$scope.playlists = $scope.p;
 		$scope.volumeVal = 50;
 		$scope.YTresults =[];
 		$scope.relatedVids =[];
 		$scope.time = 0;
 		$scope.displayTime = '00:00';
 		$scope.setVal = $scope.time;
-		$scope.fetchPlaylists = function() {
-			$scope.playlists = Playlists.query();
-		};
 		$scope.changeVolume = function () {
 			$scope.youtube.player.setVolume($scope.volumeVal);
 		};
@@ -33,7 +28,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		function init() {
 	      $scope.youtube = VideosService.getYoutube();
 	      $scope.playlist = true;
-	      $scope.loggedIn = CommService.getLoggedIn();
+	      $scope.playlists = VideosService.getPlaylists();
 	    }
 	    init();
 	    $scope.launch = function (id, title, thumb) {
@@ -128,20 +123,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			}
 		});
 
-		$scope.$watch(function() { return $scope.loggedIn; }, function(){
-			var wait = function() {
-		    var deferred = $q.defer();
-		    $scope.playlists = Playlists.query();
-		    return deferred.promise;
-		  };
-
-		  wait()
-		  .then(function(rest) {
-		    $scope.$digest();
-		  })
-		  .catch(function(fallback) {
-		  });
-
+		$scope.$watch(function() { return $scope.authentication; }, function(){
+			if($scope.authentication.user){
+				VideosService.updatePlaylists();
+			}
 		});
 
 		$scope.$watch(function() { return $scope.youtube.player.getDuration(); }, function(){
@@ -207,11 +192,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			  show_playcount:false,
 			  show_user:false,
 			});
-*/
-			
+			*/	
 		};
-		
-	    $scope.$apply();
-
 	}
 ]);

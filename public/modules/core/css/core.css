@@ -14,7 +14,7 @@
 	border-color: #78FA89;
 }
 body { 
-  background: url(/modules/core/img/bg.png) no-repeat center center fixed; 
+  background: url(/modules/core/img/bg.png) no-repeat center center fixed !important; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
