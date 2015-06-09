@@ -1,11 +1,10 @@
 'use strict';
 
 // Playlists controller
-angular.module('playlists').controller('PlaylistsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Playlists', 'VideosService', '$log', '$http', '$q', 'ngToast',
-	function($scope, $stateParams, $location, Authentication, Playlists, VideosService, $log, $http, $q, ngToast) {
+angular.module('playlists').controller('PlaylistsController', ['$scope', '$rootScope', '$stateParams', '$location', 'Authentication', 'Playlists', 'VideosService', '$log', '$http', '$q', 'ngToast',
+	function($scope, $rootScope, $stateParams, $location, Authentication, Playlists, VideosService, $log, $http, $q, ngToast) {
 		$scope.authentication = Authentication;
 		$scope.youtube = VideosService.getYoutube();
-		$log.info($scope.youtube);
 
 		// Create new Playlist
 		$scope.create = function() {
@@ -20,6 +19,7 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 
 				// Clear form fields
 				$scope.name = '';
+			$rootScope.playlists = Playlists.query();
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -27,18 +27,22 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 
 		// Remove existing Playlist
 		$scope.remove = function(playlist) {
+			var deferred = $q.defer();
 			if ( playlist ) {
 				playlist.$remove();
 
 				for (var i in $scope.playlists) {
 					if ($scope.playlists [i] === playlist) {
 						$scope.playlists.splice(i, 1);
+						$rootScope.playlists = Playlists.query();
 					}
 				}
+				
 			} else {
 				$scope.playlist.$remove(function() {
 					$location.path('playlists');
-				});
+					$rootScope.playlists = Playlists.query();
+				});	
 			}
 		};
 
@@ -48,6 +52,7 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 
 			playlist.$update(function() {
 				$location.path('playlists/' + playlist._id);
+				$rootScope.playlists = Playlists.query();
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -131,5 +136,16 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$state
 		  // return a promise for the completed requests
 		  return deferred.promise;
 		};
+		$scope.$watch(function() { return $scope.playlist.songs; }, function(){
+			if($scope.playlist.songs.length === 0){
+				document.getElementById("launchButton").disabled = true;
+				document.getElementById("discoverButton").disabled = true;
+				document.getElementById("publicButton").disabled = true;
+			}
+		});
+		$scope.goHome = function(){
+			$location.path('/');
+		};
+		
 	}
 ]);

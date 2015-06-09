@@ -18,8 +18,8 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     playerId: null,
     videoId: null,
     videoTitle: null,
-    playerHeight: '250',
-    playerWidth: '300',
+    playerHeight: '500',
+    playerWidth: '700',
     state: 'stopped',
     thumb: ''
   };
@@ -91,7 +91,11 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
       width: youtube.playerWidth,
       playerVars: {
         rel: 0,
-        showinfo: 0
+        showinfo: 0,
+        controls: 0,
+        disablekb: 1,
+        showinfo: 0,
+        iv_load_policy: 3
       },
       events: {
         'onReady': onYoutubeReady,
@@ -141,11 +145,10 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   this.getPlaylists = function() {
     return playlists;
   }
-  this.updatePlaylists = function(list){
-    playlists = Playlists.query();
+  this.updatePlaylists = function(){
+    $rootScope.playlists = Playlists.query();
   };
   youtube.ready = true;
   service.bindPlayer('placeholder');
   service.loadPlayer();
-  $rootScope.$apply();
 }]);

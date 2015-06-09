@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists', 'ngToast', '$q', '$interval', '$timeout',
-	function($scope, Authentication, $http, $log, VideosService, Playlists, ngToast, $q, $interval, $timeout) {
+angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists', 'ngToast', '$q', '$interval', '$timeout', '$location',
+	function($scope, $rootScope, Authentication, $http, $log, VideosService, Playlists, ngToast, $q, $interval, $timeout, $location) {
+		$scope.visible = "{'visibility':'hidden'}";
 		$scope.authentication = Authentication;
 		$scope.loading = true;
 		$scope.volumeVal = 50;
@@ -28,7 +29,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		function init() {
 	      $scope.youtube = VideosService.getYoutube();
 	      $scope.playlist = true;
-	      $scope.playlists = VideosService.getPlaylists();
+	      $rootScope.playlists = VideosService.getPlaylists();
 	    }
 	    init();
 	    $scope.launch = function (id, title, thumb) {
@@ -123,12 +124,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			}
 		});
 
-		$scope.$watch(function() { return $scope.authentication; }, function(){
-			if($scope.authentication.user){
-				VideosService.updatePlaylists();
-			}
-		});
-
 		$scope.$watch(function() { return $scope.youtube.player.getDuration(); }, function(){
 			var totalSec = Math.floor($scope.youtube.player.getDuration());
 			var hours = parseInt( totalSec / 3600 ) % 24;
@@ -146,20 +141,21 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			seekBar.max=$scope.youtube.player.getDuration();
 		});
 
+
 		$scope.seekTo = function(){
 			$scope.youtube.player.seekTo($scope.setVal);
 		};
 
 		$scope.toggleState = 'Play';
 	    //Soundcloud stuffs
-	    /*
+	
         SC.initialize({
           client_id: '7ee4ea137d2c4782d07fc465eb841845'
         });
 
 		var widgetIframe = document.getElementById('sc-widget'),
 		    widget       = SC.Widget(widgetIframe);
-*/
+
 		var newWidgetUrl = 'http://api.soundcloud.com/tracks/',
 		    CLIENT_ID    = '7ee4ea137d2c4782d07fc465eb841845';
 		
@@ -182,7 +178,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		};
 		
 		$scope.playSCTrack = function (soundId) {
-			/*widget.load('http://api.soundcloud.com/tracks/'+soundId, {
+			widget.load('http://api.soundcloud.com/tracks/'+soundId, {
 			  show_artwork: false,
 			  auto_play:true,
 			  show_comments:false,
@@ -192,7 +188,15 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			  show_playcount:false,
 			  show_user:false,
 			});
-			*/	
 		};
+		$scope.$watch(function() { return $location.path(); }, function(){
+			if($location.path() === '/'){
+				$scope.visible = {'visibility':'hidden', 'height':'0'};
+			} else if($location.path() === '/play'){
+				$scope.visible = {'visibility':'visible', 'height':'500px'};
+			} else {
+				$scope.visible = {'visibility':'hidden','height':'0'};
+			}
+		});
 	}
 ]);

@@ -49,14 +49,21 @@
 	<toast></toast>
 	<section data-ng-include="'/modules/core/views/sidebar.view.html'"></section>
 	<section class="content" style="margin-top:70px; margin-bottom:170px;">
+		<section ng-controller="NavController" style="margin-left:270px!important;">
+			<button ng-class="searchClass" ng-click="goToSearch();">Search</button>
+			<button ng-class="playClass" ng-click="goToPlay();">Play</button>
+		</section>
+		<section ng-controller="HomeController" style="margin-left:500px;">
+			<div id="player" ng-style="visible">
+			  <div id="placeholder"></div>
+			</div>
+			<section id="scplayer" style="visibility:hidden;">
+				<iframe id="sc-widget" width="100" height="80" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=false"></iframe>
+			  </section>
+		</section>
 		<section class="container" style="background-color:rgba(0,0,0,0.4)!important;">
 			{% block content %}{% endblock %}
 		</section>
-		<section ng-controller="HomeController" style="position:fixed; bottom:120px; top:auto;">
-			<div id="player" style="visibility: hidden;">
-			  <div id="placeholder"></div>
-			</div>
-			</section>
 		<section data-ng-include="'/modules/core/views/playercontrols.html'" class="navbar-fixed-bottom"  style="background-color:rgba(0,0,0,0.4)!important;"></section>
 	</section>
 	

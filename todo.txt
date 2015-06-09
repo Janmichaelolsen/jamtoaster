@@ -1,4 +1,5 @@
 - Play controls
+- video
 - Design
 
 - Collaborative playlist

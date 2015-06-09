@@ -4,9 +4,9 @@
 		<h3>{{playlist.songs.length}} songs</h3>
 	</div>
 	<div style="display:block;">
-		<button ng-click="launchList(playlist.songs);" class="list-group-item btn btn-success pull-left">Shuffle Play</button>
-		<button ng-click="discover(playlist.songs);" class="list-group-item btn btn-warning pull-left">Discover</button>
-		<button ng-click="launchList(playlist.songs);" class="list-group-item btn btn-info pull-left">Make Public</button>
+		<button id="launchButton" ng-click="launchList(playlist.songs);" class="btn btn-success pull-left">Shuffle Play</button>
+		<button id="discoverButton" ng-click="discover(playlist.songs);" class="btn btn-warning pull-left">Discover</button>
+		<button id="publicButton" disabled ng-click="launchList(playlist.songs);" class="btn btn-info pull-left">Make Public</button>
 	</div>
 		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == playlist.user._id))">
 			<a class="btn btn-default" href="/#!/playlists/{{playlist._id}}/edit">
@@ -33,6 +33,6 @@
 	</table>
 	</div>
 	<div class="alert alert-info text-center" data-ng-hide="playlist.songs.length">
-		This list has no songs, <a href="/">click here</a> to add some!
+		This list has no songs, <a ng-click="goHome();">click here</a> to add some!
 	</div>
 </section>
