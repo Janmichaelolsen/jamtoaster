@@ -29,7 +29,7 @@
 			    		</td>
 			    		<td>
 			    			<button ng-click="launch(vid.id.videoId, vid.snippet.title, vid.snippet.thumbnails.default.url);" class="btn btn-success">Play</button>
-                <div class="dropdown">
+                <div class="dropdown" ng-show="authentication.user">
                   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                     Add to..
                     <span class="caret"></span>
@@ -100,11 +100,14 @@
 			    		<td>
 			    			{{sound.title}}
 			    		</td>
-			    		
+			    		<td>
+			    			Play coming soon!
+			    		</td>
+			    		<!--
 			    		<td>
 			    			<button ng-click="playSCTrack(sound.id)" class="btn btn-success">Play</button>
 			    		</td>
-			    	
+			    	-->
 			    	</tr>
 				</table>
 			</div>

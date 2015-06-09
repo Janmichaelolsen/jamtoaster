@@ -198,5 +198,12 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 				$scope.visible = {'visibility':'hidden','height':'0'};
 			}
 		});
+		$scope.$watch(function() { return $scope.authentication; }, function(){
+			if($scope.authentication.user){
+				$rootScope.playlists = Playlists.query();
+			}
+		});
+
+						
 	}
 ]);
