@@ -48,11 +48,13 @@
 	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-default"></header>
 	<toast></toast>
 	<section data-ng-include="'/modules/core/views/sidebar.view.html'"></section>
-	<section class="content" style="margin-top:40px; margin-bottom:170px;">
-		<section ng-controller="NavController" style="margin-left:250px!important; position:fixed;">
-			<button ng-class="searchClass" ng-click="goToSearch();">Search</button>
-			<button ng-class="playClass" ng-click="goToPlay();">Play</button>
+	<section class="toptabs">
+		<section ng-controller="NavController">
+			<div class="searchButton" ng-class="searchClass" ng-click="goToSearch();"><span class="glyphicon glyphicon-search" aria-hidden="true" style="margin-top:18px;"></span></div>
+			<div class="playButton" ng-class="playClass" ng-click="goToPlay();"><span class="glyphicon glyphicon-play" aria-hidden="true" style="margin-top:18px;"></span></div>
 		</section>
+	</section>
+	<section class="content" style="margin-bottom:170px; margin-top:50px;">
 		<section ng-controller="HomeController" style="text-align:center;">
 			<div id="player" ng-style="visible">
 			  <div id="placeholder"></div>

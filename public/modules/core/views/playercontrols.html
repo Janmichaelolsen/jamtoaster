@@ -1,5 +1,5 @@
 <div class="container" style="display:inline;" data-ng-controller="HomeController">
-    <p>{{youtube.videoTitle}}</p>
+    <p style="text-align:center;">{{youtube.videoTitle}}</p>
     <button class="btn btn-default" ng-click="togglePlay()" style="float:left;">{{toggleState}}</button>
     <button class="btn btn-default" type="submit" ng-click="nextSong();" style="float:left;" data-ng-show="authentication.user">Next Song</button>
     <div class="dropdown" style=" float:left;" data-ng-init="initPlaylistsMenu()" data-ng-show="authentication.user">

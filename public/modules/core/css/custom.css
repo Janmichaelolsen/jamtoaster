@@ -206,7 +206,7 @@ input::-ms-fill-lower {
     background: none;
 }
 
-@media(min-width:768px) {
+@media(min-width:1100px) {
     #wrapper {
         padding-left: 250px;
     }
@@ -233,8 +233,58 @@ input::-ms-fill-lower {
         margin-right: 0;
     }
 }
-@media(min-width:768px) {
+.toptabButton {
+    text-align:center;
+    display: inline-block;
+    cursor:pointer;
+    background:#4e5d6c;
+    margin-top:40px;
+    height:50px;
+}
+
+.toptabButton:hover {
+    background-color: #627487;
+}
+.toptabButton-select:hover {
+    background-color: #00a700;
+}
+.toptabButton-select {
+    background:green;
+}
+.toptabs{
+    width:100%;
+    position:fixed;
+    text-align:center;
+    top:0;
+}
+@media(min-width:900px) {
     #playlists {
         display:none;
+    }
+    .toptabButton {
+        width:31%;
+    }
+    .searchButton {
+        top:0;
+    }
+    .playButton {
+        top:0;
+    }
+}
+@media(max-width:900px) {
+    .toptabButton {
+        width:50%;
+        float:left;
+    }
+    .searchButton {
+        top:0;
+        margin-left:0px;
+        width:50%;
+    }
+    .playButton {
+        top:0;
+        right:0;
+        left:auto;
+        width:50%;
     }
 }
