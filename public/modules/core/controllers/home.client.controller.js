@@ -2,7 +2,6 @@
 
 angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http', '$log', 'VideosService', 'Playlists', 'ngToast', '$q', '$interval', '$timeout', '$location',
 	function($scope, $rootScope, Authentication, $http, $log, VideosService, Playlists, ngToast, $q, $interval, $timeout, $location) {
-		$scope.visible = "{'visibility':'hidden'}";
 		$scope.authentication = Authentication;
 		$scope.loading = true;
 		$scope.volumeVal = 50;
@@ -190,12 +189,13 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 			});
 		};
 		$scope.$watch(function() { return $location.path(); }, function(){
+			$scope.location = $location.path();
 			if($location.path() === '/'){
-				$scope.visible = {'visibility':'hidden', 'height':'0'};
+				$scope.visible = {'visibility':'hidden', 'height':'0', 'width':'0'};
 			} else if($location.path() === '/play'){
-				$scope.visible = {'visibility':'visible', 'height':'500px'};
+				$scope.visible = {'visibility':'visible', 'height':'500px', 'width':'100%'};
 			} else {
-				$scope.visible = {'visibility':'hidden','height':'0'};
+				$scope.visible = {'visibility':'hidden','height':'0', 'width':'0'};
 			}
 		});
 		$scope.$watch(function() { return $scope.authentication; }, function(){

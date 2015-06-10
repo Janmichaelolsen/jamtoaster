@@ -7,13 +7,19 @@
                     Playlists
                 </a>
             </li>
-            <li>
+            <li ng-hide="location === '/playlists/create'">
+                <a href="/#!/playlists/create">+ New Playlist</a>
+            </li>
+            <li style="background:green;" ng-show="location === '/playlists/create'">
                 <a href="/#!/playlists/create">+ New Playlist</a>
             </li>
             <div ng-repeat="playlist in playlists">
-            	<li>
+            	<li ng-hide="location === '/playlists/{{playlist._id}}'">
 	                <a href="#!/playlists/{{playlist._id}}">{{playlist.name}}</a>
 	            </li>
+                <li style="background:green;" ng-show="location === '/playlists/{{playlist._id}}'">
+                    <a href="#!/playlists/{{playlist._id}}">{{playlist.name}}</a>
+                </li>
             </div>
         </ul>
     </div>

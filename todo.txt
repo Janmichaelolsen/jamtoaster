@@ -1,8 +1,10 @@
+v1.0
 - Play controls
 - video
 - Design
+- Soundcloud!
 
+v2.0
 - Collaborative playlist
 - profile
 - my jam
-- Soundcloud?
