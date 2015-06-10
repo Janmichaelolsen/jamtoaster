@@ -144,7 +144,7 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
 
   this.getPlaylists = function() {
     return playlists;
-  }
+  };
   this.updatePlaylists = function(){
     $rootScope.playlists = Playlists.query();
   };

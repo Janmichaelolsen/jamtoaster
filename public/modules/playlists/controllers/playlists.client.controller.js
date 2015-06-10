@@ -86,6 +86,7 @@ angular.module('playlists').controller('PlaylistsController', ['$scope', '$rootS
 		$scope.launchList = function(list){
 			ngToast.create('Shuffle playing '+$scope.playlist.name);
 			VideosService.launchList(list);
+			$location.path('/play');
 		};
 		$scope.playSong = function(song, list){
 			VideosService.launchListSpes(song, list);

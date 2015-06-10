@@ -5,7 +5,6 @@ angular.module('core').controller('NavController', ['$scope', 'Authentication', 
 		$scope.authentication = Authentication;
 		$scope.searchClass = 'btn btn-success';
 		$scope.playClass = 'btn btn-default';
-		$scope.visible = "{'visibility':'hidden'}";
 
 		$scope.goToSearch = function() {
 			$location.path('/');
@@ -18,15 +17,12 @@ angular.module('core').controller('NavController', ['$scope', 'Authentication', 
 			if($location.path() === '/'){
 				$scope.searchClass = 'btn btn-success';
 				$scope.playClass = 'btn btn-default';
-				$scope.visible = "{'visibility':'hidden'}";
 			} else if($location.path() === '/play'){
 				$scope.playClass = 'btn btn-success';
 				$scope.searchClass = 'btn btn-default';
-				$scope.visible = "{'visibility':'visible'}";
 			} else {
  				$scope.playClass = 'btn btn-default';
 				$scope.searchClass = 'btn btn-default';
-				$scope.visible = "{'visibility:'hidden'}";
 			}
 		});
 	}
