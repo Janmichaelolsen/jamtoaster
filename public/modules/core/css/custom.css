@@ -167,6 +167,7 @@ input::-ms-fill-lower {
     margin: 0;
     padding: 0;
     list-style: none;
+    z-index:59500!important;
 }
 
 .sidebar-nav li {
@@ -217,6 +218,7 @@ input::-ms-fill-lower {
 
     #sidebar-wrapper {
         width: 250px;
+        z-index:59500!important;
     }
 
     #wrapper.toggled #sidebar-wrapper {
@@ -256,6 +258,7 @@ input::-ms-fill-lower {
     position:fixed;
     text-align:center;
     top:0;
+    z-index:50000;
 }
 @media(min-width:900px) {
     #playlists {
@@ -287,4 +290,10 @@ input::-ms-fill-lower {
         left:auto;
         width:50%;
     }
+}
+.navbar {
+    z-index:60000!important;
+}
+.navbar-fixed-bottom {
+    z-index:70000!important;
 }

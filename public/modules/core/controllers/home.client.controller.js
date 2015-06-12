@@ -191,11 +191,11 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 		$scope.$watch(function() { return $location.path(); }, function(){
 			$scope.location = $location.path();
 			if($location.path() === '/'){
-				$scope.visible = {'visibility':'hidden', 'height':'0', 'width':'0'};
+				$scope.visible = {'visibility':'hidden', 'height':'0'};
 			} else if($location.path() === '/play'){
-				$scope.visible = {'visibility':'visible', 'height':'500px', 'width':'100%'};
+				$scope.visible = {'position':'relative', 'visibility':'visible', 'margin-top':'60px'};
 			} else {
-				$scope.visible = {'visibility':'hidden','height':'0', 'width':'0'};
+				$scope.visible = {'visibility':'hidden','height':'0'};
 			}
 		});
 		$scope.$watch(function() { return $scope.authentication; }, function(){
