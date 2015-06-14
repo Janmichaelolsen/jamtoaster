@@ -218,7 +218,7 @@ input::-ms-fill-lower {
 
     #sidebar-wrapper {
         width: 250px;
-        z-index:59500!important;
+        z-index:2!important;
     }
 
     #wrapper.toggled #sidebar-wrapper {
@@ -258,7 +258,7 @@ input::-ms-fill-lower {
     position:fixed;
     text-align:center;
     top:0;
-    z-index:50000;
+    z-index:1;
 }
 @media(min-width:900px) {
     #playlists {
@@ -303,11 +303,8 @@ input::-ms-fill-lower {
     height:420px!important;
   }
 }
-.navbar {
-    z-index:60000!important;
-}
 .navbar-fixed-bottom {
-    z-index:70000!important;
+    z-index:3!important;
 }
 .ytsection {
   top:60px;
