@@ -1,1 +1,19 @@
-<h2>Play Queue</h2>
+<h3>Play Queue</h3>
+<section ng-controller="PlayController" ng-init="init()">
+  <table class="table table-hover table-striped">
+      <hr>
+      <tr ng-repeat="vid in playQueue">
+        <td>
+          <img src="{{vid.thumb}}"></img>
+        </td>
+        <td>
+          <div style="color:#66FF66;" ng-show="vid.videoId === youtube.videoId">{{vid.title}}</div>
+  				<div ng-hide="vid.videoId === youtube.videoId">{{vid.title}}</div>
+
+        </td>
+        <td>
+
+        </td>
+      </tr>
+  </table>
+</section>

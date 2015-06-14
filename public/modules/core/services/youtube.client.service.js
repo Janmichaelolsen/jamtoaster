@@ -4,6 +4,7 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
 
   var shuffle = false;
   var playlist = ['NT5SSgY21zg'];
+  var playQueue = [];
   var service = this;
   var s = document.createElement('script'); // use global document since Angular's $document is weak
   var discover = false;
@@ -30,9 +31,12 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   };
   this.launchDiscover = function(list){
     discover = true;
-    playlist = list;
+    $log.info(list);
+    for(var i=0; i<list.length; i++){
+      playlist.push({videoId: list[i].id.videoId, title: list[i].snippet.title, thumb: list[i].snippet.thumbnails.default.url});
+    }
     var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
-    this.launchPlayer(video.id.videoId, video.snippet.title, video.snippet.thumbnails.default.url);
+    this.launchPlayer(video.videoId, video.title, video.thumb);
   };
   this.launchListSpes = function(song, list){
     discover = false;
@@ -40,20 +44,11 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     this.launchPlayer(song.videoId, song.title, song.thumb);
   };
   this.nextSong = function(){
-    if(discover === false){
-      if(playlist.length === 1){
-        this.launchPlayer(playlist[0].videoId, playlist[0].title);
-      }else {
-        var video = playlist[Math.floor((Math.random() * playlist.length) + 0)];
-        this.launchPlayer(video.videoId, video.title, video.thumb);
-      }
-    }else{
-      if(playlist.length === 1){
-        this.launchPlayer(playlist[0].id.videoId, playlist[0].snippet.title);
-      }else {
-        var disc = playlist[Math.floor((Math.random() * playlist.length) + 0)];
-        this.launchPlayer(disc.id.videoId, disc.snippet.title, disc.snippet.thumbnails.default.url);
-      }
+    if(playlist.length === 1){
+      this.launchPlayer(playlist[0].id.videoId, playlist[0].snippet.title);
+    }else {
+      var disc = playlist[Math.floor((Math.random() * playlist.length) + 0)];
+      this.launchPlayer(disc.id.videoId, disc.snippet.title, disc.snippet.thumbnails.default.url);
     }
   }
   function onYoutubeReady (event) {
@@ -139,7 +134,9 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
   this.getYoutube = function () {
     return youtube;
   };
-
+  this.getPlaylist = function() {
+    return playlist;
+  };
   this.getPlaylists = function() {
     return playlists;
   };

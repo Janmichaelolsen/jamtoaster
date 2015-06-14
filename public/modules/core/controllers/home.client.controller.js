@@ -59,7 +59,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 	        $scope.errorText='An error occured, check your connection or try refreshing the page.';
 	      });
 	    };
-		
+
 
 		$scope.findRelated = function(videoId){
 			$scope.loadingrelated = true;
@@ -82,7 +82,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 		        $scope.errorText='An error occured, check your connection or try refreshing the page.';
       		});
 		};
-		
+
 		$scope.addTrackFromMenu = function(list) {
 			$scope.addYTTrack($scope.youtube.videoId, $scope.youtube.thumb, $scope.youtube.videoTitle, list);
 		};
@@ -94,12 +94,12 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 			playlist.songs = songs;
 			playlist.$update();
 			ngToast.create('Added to '+list.name);
-			
+
 		};
 
 		$scope.$watch(function() { return $scope.youtube.state; }, function(){
 			if($scope.youtube.state === 'paused' || $scope.youtube.state === 'stopped'){
-				$scope.toggleState = 'Play';
+				$scope.toggleState = 'glyphicon glyphicon-play';
 			}else if($scope.youtube.state === 'playing'){
 				$scope.callAtInterval = function(){
 					var totalSec = Math.floor($scope.youtube.player.getCurrentTime());
@@ -119,7 +119,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 					$scope.setVal = $scope.time;
 				};
 				$interval($scope.callAtInterval, 500);
-				$scope.toggleState = 'Pause';
+				$scope.toggleState = 'glyphicon glyphicon-pause';
 			}
 		});
 
@@ -147,7 +147,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
 		$scope.toggleState = 'Play';
 	    //Soundcloud stuffs
-	
+
         SC.initialize({
           client_id: '7ee4ea137d2c4782d07fc465eb841845'
         });
@@ -157,7 +157,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
 		var newWidgetUrl = 'http://api.soundcloud.com/tracks/',
 		    CLIENT_ID    = '7ee4ea137d2c4782d07fc465eb841845';
-		
+
 		$scope.searchSC = function () {
 			$scope.loading = true;
 			SC.get('/tracks', { q: $scope.SCquery }, function(tracks) {
@@ -175,7 +175,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 			playlist.songs = songs;
 			playlist.$update();
 		};
-		
+
 		$scope.playSCTrack = function (soundId) {
 			widget.load('http://api.soundcloud.com/tracks/'+soundId, {
 			  show_artwork: false,
@@ -204,6 +204,6 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 			}
 		});
 
-						
+
 	}
 ]);

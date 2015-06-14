@@ -26,8 +26,8 @@
 				<div ng-hide="song.videoId === youtube.videoId">{{song.title}}</div>
 			</td>
 			<td>
-				<button ng-click="playSong(song, playlist.songs)" class="btn btn-success">Play</button><br>
-				<button class="btn btn-danger" ng-click="removeSong(song);">Remove</button><br>
+				<button ng-click="playSong(song, playlist.songs)" class="btn btn-success"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+				<button class="btn btn-danger" ng-click="removeSong(song);"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 			</td>
 		</tr>
 	</table>

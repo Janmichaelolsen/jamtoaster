@@ -303,6 +303,11 @@ input::-ms-fill-lower {
     height:420px!important;
   }
 }
+@media(max-width:570px){
+  .ytplayer {
+    height:300px!important;
+  }
+}
 .navbar-fixed-bottom {
     z-index:3!important;
 }
