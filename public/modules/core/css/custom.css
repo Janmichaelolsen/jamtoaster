@@ -37,10 +37,10 @@
 input[type=range] {
     /*removes default webkit styles*/
     -webkit-appearance: none;
-    
+
     /*fix for FF unable to apply focus style bug */
     border: 1px solid white;
-    
+
     /*required for proper track sizing in FF*/
     width: 300px;
 }
@@ -91,10 +91,10 @@ input[type=range]:-moz-focusring{
 input::-ms-track {
     width: 300px;
     height: 5px;
-    
+
     /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
     background: transparent;
-    
+
     /*leave room for the larger thumb to overflow with a transparent border */
     border-color: transparent;
     border-width: 6px 0;
@@ -273,6 +273,9 @@ input::-ms-fill-lower {
     .playButton {
         top:0;
     }
+    .ytplayer {
+      width:60%;
+    }
 }
 @media(max-width:900px) {
     .toptabButton {
@@ -290,10 +293,26 @@ input::-ms-fill-lower {
         left:auto;
         width:50%;
     }
+    .ytplayer {
+      width:90%;
+      height:380px!important;
+    }
+}
+@media(max-width:1400px){
+  .ytplayer {
+    height:420px!important;
+  }
 }
 .navbar {
     z-index:60000!important;
 }
 .navbar-fixed-bottom {
     z-index:70000!important;
+}
+.ytsection {
+  top:60px;
+}
+.ytplayer {
+  height:650px;
+  max-width:1500px;
 }

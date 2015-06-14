@@ -18,8 +18,6 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
     playerId: null,
     videoId: null,
     videoTitle: null,
-    playerHeight: '400',
-    playerWidth: '40%',
     state: 'stopped',
     thumb: ''
   };
