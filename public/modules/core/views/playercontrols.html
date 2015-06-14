@@ -16,12 +16,8 @@
     </ul>
   </div>
   <input type="range" ng-model="volumeVal" ng-change="changeVolume();" style="width:100px; position:fixed; left:190px; bottom:25px;"/>
-  <div style="display:inline">
-    <div style="width:300px; float:left; bottom:0;"></div>
-    <div style="width:100%; text-align:center!important;">
-        <input type="range" id="seekBar" ng-model="setVal" ng-change="seekTo()" style="width:50%;" max="duration" step="1"/>
-    </div>
-</div>
+  <p style="float:left; margin-right:10px;"></p>
+  <input type="range" id="seekBar" ng-model="setVal" ng-change="seekTo()" style="width:60%; position:fixed; left:300px; bottom:25px;" max="duration" step="1"/>
   <p ng-bind="displayTime" style="float:right"></p>
   <p style="float:right">/</p>
   <p style="float:right; right:10px;">{{displayDuration}}</p>
