@@ -28,10 +28,10 @@
 
 			    		</td>
 			    		<td>
-			    			<button ng-click="launch(vid.id.videoId, vid.snippet.title, vid.snippet.thumbnails.default.url);" class="btn btn-success">Play</button>
+			    			<button style="float:left;" ng-click="launch(vid.id.videoId, vid.snippet.title, vid.snippet.thumbnails.default.url);" class="btn btn-success"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
                 <div class="dropdown" ng-show="authentication.user">
-                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                    Add to..
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" style="float:left;">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">

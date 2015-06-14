@@ -297,6 +297,10 @@ input::-ms-fill-lower {
       width:90%;
       height:380px!important;
     }
+    #titleField {
+      margin-bottom:35px;
+    }
+
 }
 @media(max-width:1400px){
   .ytplayer {
@@ -306,6 +310,26 @@ input::-ms-fill-lower {
 @media(max-width:570px){
   .ytplayer {
     height:300px!important;
+  }
+  #volumeSlider {
+    display:none;
+  }
+  #seekBar {
+    margin-bottom:30!important;
+    width:95%!important;
+    left:10px!important;
+  }
+  #titleField {
+    margin-bottom:55px!important;
+  }
+  #nextSongButton {
+    bottom:30px!important;
+  }
+  #playButton {
+    bottom:30px!important;
+  }
+  #addToButton {
+    bottom:30px!important;
   }
 }
 .navbar-fixed-bottom {
@@ -317,4 +341,25 @@ input::-ms-fill-lower {
 .ytplayer {
   height:650px;
   max-width:1500px;
+}
+#seekBar {
+  width:60%;
+  position:fixed;
+  left:300px;
+  bottom:15px;
+}
+#nextSongButton {
+  position:fixed;
+  left:60px;
+  bottom:5px;
+}
+#playButton {
+  position:fixed;
+  left:10px;
+  bottom:5px;
+}
+#addToButton {
+  position:fixed;
+  left:110px;
+  bottom:5px;
 }

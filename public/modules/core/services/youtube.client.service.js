@@ -48,7 +48,7 @@ angular.module('core').service('VideosService', ['$window', '$rootScope', '$log'
       this.launchPlayer(playlist[0].id.videoId, playlist[0].snippet.title);
     }else {
       var disc = playlist[Math.floor((Math.random() * playlist.length) + 0)];
-      this.launchPlayer(disc.id.videoId, disc.snippet.title, disc.snippet.thumbnails.default.url);
+      this.launchPlayer(disc.videoId, disc.title, disc.thumb);
     }
   }
   function onYoutubeReady (event) {

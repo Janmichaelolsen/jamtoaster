@@ -1,8 +1,8 @@
 <div class="container" style="display:inline;" data-ng-controller="HomeController">
-    <h3 style="text-align:center; margin-top:0;">{{youtube.videoTitle}}</h3>
-    <button class="btn btn-default" ng-click="togglePlay()" style="position:fixed; left:10px; bottom:10px;"><span ng-class="toggleState" aria-hidden="true"></span></button>
-    <button class="btn btn-default" type="submit" ng-click="nextSong();" style="position:fixed; left:60px; bottom:10px;" data-ng-show="authentication.user"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
-    <div class="dropdown" style="position:fixed; left:110px; bottom:10px;" data-ng-init="initPlaylistsMenu()" data-ng-show="authentication.user">
+    <h4 id="titleField" style="text-align:center; margin-top:0;">{{youtube.videoTitle}}</h4c>
+    <button class="btn btn-default" ng-click="togglePlay()" id="playButton"><span ng-class="toggleState" aria-hidden="true"></span></button>
+    <button class="btn btn-default" type="submit" ng-click="nextSong();" id="nextSongButton" data-ng-show="authentication.user"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
+    <div class="dropdown" id="addToButton" data-ng-init="initPlaylistsMenu()" data-ng-show="authentication.user">
     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-expanded="true">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
       <span class="caret"></span>
@@ -15,11 +15,11 @@
     </div>
     </ul>
   </div>
-  <input type="range" ng-model="volumeVal" ng-change="changeVolume();" style="width:100px; position:fixed; left:190px; bottom:25px;"/>
+  <input id="volumeSlider" type="range" ng-model="volumeVal" ng-change="changeVolume();" style="width:100px; position:fixed; left:190px; bottom:15px;"/>
   <p style="float:left; margin-right:10px;"></p>
-  <input type="range" id="seekBar" ng-model="setVal" ng-change="seekTo()" style="width:60%; position:fixed; left:300px; bottom:25px;" max="duration" step="1"/>
-  <p ng-bind="displayTime" style="float:right"></p>
+  <input type="range" id="seekBar" ng-model="setVal" ng-change="seekTo()" max="duration" step="1"/>
+  <p style="float:right;">{{displayDuration}}</p>
   <p style="float:right">/</p>
-  <p style="float:right; right:10px;">{{displayDuration}}</p>
-  <p style="right:10px; left:auto;" ng-hide="authentication.user">Sign up to create playlists!</p>
+  <p ng-bind="displayTime" style="float:right"></p>
+  <!--p style="right:10px; left:auto;" ng-hide="authentication.user">Sign up to create playlists!</p-->
 </div>
