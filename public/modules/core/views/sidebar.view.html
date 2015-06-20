@@ -10,14 +10,14 @@
             <li ng-hide="location === '/playlists/create'">
                 <a href="/#!/playlists/create">+ New Playlist</a>
             </li>
-            <li style="background:green;" ng-show="location === '/playlists/create'">
+            <li style="background:#00ff7e;" ng-show="location === '/playlists/create'">
                 <a href="/#!/playlists/create">+ New Playlist</a>
             </li>
             <div ng-repeat="playlist in playlists">
             	<li ng-hide="location === '/playlists/{{playlist._id}}'">
 	                <a href="#!/playlists/{{playlist._id}}">{{playlist.name}}</a>
 	            </li>
-                <li style="background:green;" ng-show="location === '/playlists/{{playlist._id}}'">
+                <li style="background:#00ff7e;" ng-show="location === '/playlists/{{playlist._id}}'">
                     <a href="#!/playlists/{{playlist._id}}">{{playlist.name}}</a>
                 </li>
             </div>

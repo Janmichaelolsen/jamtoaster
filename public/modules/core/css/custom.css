@@ -1,3 +1,6 @@
+.dd {
+  background-color: #313C53!important;
+}
 .dd > li > a {
   display: block;
   padding: 3px 20px;
@@ -7,24 +10,25 @@
   color: #fff;
   white-space: nowrap;
   cursor: pointer;
+  background-color: #313C53!important;
 }
 .dd > li > a:hover,
 .dd > li > a:focus {
   text-decoration: none;
-  background-color: #39444e;
+  background-color: #465064!important;
 }
 .dd > .active > a,
 .dd > .active > a:hover,
 .dd > .active > a:focus {
   color: #fff;
   text-decoration: none;
-  background-color: #337ab7;
+  background-color: #465064!important;
   outline: 0;
 }
 .dd > .disabled > a,
 .dd > .disabled > a:hover,
 .dd > .disabled > a:focus {
-  color: #777;
+  color: #313C53!important;
 }
 .dd > .disabled > a:hover,
 .dd > .disabled > a:focus {
@@ -136,7 +140,7 @@ input::-ms-fill-lower {
     top:30px;
     margin-left: -250px;
     overflow-y: auto;
-    background: #4e5d6c;
+    background: #313C53;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -239,19 +243,19 @@ input::-ms-fill-lower {
     text-align:center;
     display: inline-block;
     cursor:pointer;
-    background:#4e5d6c;
+    background: #313C53;
     margin-top:40px;
     height:50px;
 }
 
 .toptabButton:hover {
-    background-color: #627487;
+    background-color: #465064;
 }
 .toptabButton-select:hover {
-    background-color: #00a700;
+    background-color: #00ff7e;
 }
 .toptabButton-select {
-    background:green;
+    background:#00ff7e;
 }
 .toptabs{
     width:100%;
@@ -352,14 +356,21 @@ input::-ms-fill-lower {
   position:fixed;
   left:60px;
   bottom:5px;
+  background:#313C53!important;
 }
 #playButton {
   position:fixed;
   left:10px;
   bottom:5px;
+  background:#313C53!important;
 }
 #addToButton {
   position:fixed;
   left:110px;
   bottom:5px;
+  background:#313C53!important;
+}
+
+.navbar-fixed-top {
+  background-color:#313C53!important;
 }

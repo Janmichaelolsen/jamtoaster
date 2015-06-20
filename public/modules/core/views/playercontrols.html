@@ -2,8 +2,8 @@
     <h4 id="titleField" style="text-align:center; margin-top:0;">{{youtube.videoTitle}}</h4c>
     <button class="btn btn-default" ng-click="togglePlay()" id="playButton"><span ng-class="toggleState" aria-hidden="true"></span></button>
     <button class="btn btn-default" type="submit" ng-click="nextSong();" id="nextSongButton" data-ng-show="authentication.user"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
-    <div class="dropdown" id="addToButton" data-ng-init="initPlaylistsMenu()" data-ng-show="authentication.user">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-expanded="true">
+    <div class="dropdown" data-ng-init="initPlaylistsMenu()" data-ng-show="authentication.user">
+    <button id="addToButton" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-expanded="true">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
       <span class="caret"></span>
     </button>
